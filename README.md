@@ -17,3 +17,4 @@ This is very rough beginnings of a packer template for macOS 11 with VMware fusi
 * get shell provisioners working
 * Install Xcode & cli tools
 * softwareupdate
+* export fusion happy .ova
