@@ -7,3 +7,4 @@ crash.log
 # For built boxes
 *.box
 .DS_Store
+output*
