@@ -3,7 +3,7 @@
 This is very rough beginnings of a packer template for macOS 11 with VMware fusion 12. 
 
 ## What's working
-* [buildprerequs.sh] working with imported submodules
+* [buildprerequs.sh](buildprerequs.sh) working with imported submodules
 * Booting the VM from a macos install .iso
 * Using voiceover and boot commands to open terminal.app !!
 * Formatting the disk
