@@ -3,20 +3,25 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-# update the installer build script
-git -C ../macadmin-scripts/ pull
-
 # build the installer dmg
-cd install_bits
-sudo ../macadmin-scripts/installinstallmacos.py --seedprogram DeveloperSeed #--raw --clear --os "11.0"
+cd submodules/macadmin-scripts/
+echo "Start OS installer download"
+sudo ./installinstallmacos.py --seedprogram DeveloperSeed
+cd ../../
 
 # mount the installer dmg
-open Install*.dmg
+# setup gitignore for install_bits dir
+hdiutil attach submodules/macadmin-scripts/Install_macOS*.dmg -noverify -mountpoint install_bits/dmg
 
 # built an ios
-hdiutil create -o macOS_11_rw -size 15g -volname macOS -layout SPUD -fs HFS+J
-hdiutil attach macOS_11_rw.dmg -noverify -mountpoint /Volumes/macOS_11_rw
-sudo Install\ macOS\ Big\ Sur\ Beta.app/Contents/Resources/createinstallmedia --volume /Volumes/macOS_11_rw --nointeraction
-hdiutil detach /Volumes/Install\ macOS\ Big\ Sur\ Beta
-hdiutil convert macOS_11_rw.dmg -format UDTO -o macOS_11.cdr
-mv macOS_11.cdr macOS_11.iso
+# use this as a git submodule https://github.com/rtrouton/create_macos_vm_install_dmg/blob/master/create_macos_vm_install_dmg.sh
+echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh install_bits/dmg/Install\ macOS\ Big\ Sur\ Beta.app install_bits/
+
+# ugly try to unmount any existing installer volumes
+hdiutil detach install_bits/dmg
+
+# output shasum
+echo "remember to update the shasum in the packer template"
+shasum -a 1 install_bits/macOS_1100_installer.iso
+
+exit 0

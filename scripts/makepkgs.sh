@@ -1,0 +1,2 @@
+productbuild --package packages/setupsshlogin/build/setupsshlogin.pkg http/setupsshlogin.pkg
+~/code/pycreateuserpkg/createuserpkg -n packer -u 502 -f packer -a -A -d -V 3 -i com.netjibbing.packer -p packer ~/code/packer-macos-11/http/packer.pkg
