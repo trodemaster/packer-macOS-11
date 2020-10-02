@@ -36,9 +36,9 @@ boot_keygroup_interval = "2s"
     "chmod +x /var/root/bootstrap.sh<enter>",
     "/var/root/bootstrap.sh<enter>"
   ]
-  cpus   = "4"
-  cores  = "4"
-  memory = "16384"
+  cpus   = "8"
+  cores  = "8"
+  memory = "24576"
 }
 
 build {
