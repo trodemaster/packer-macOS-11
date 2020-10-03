@@ -36,6 +36,9 @@ else
     echo "setupsshlogin.sh /System/Library/User\ Template/English.lproj/Library/Preferences not found!!"
 fi
 
+# add vmware to the kext allowlist for tools
+/usr/sbin/spctl kext-consent add EG7KH642X6
+
 # enable ssh at next boot
 echo "setupsshlogin.sh enable ssh at next boot"
 cp /System/Library/LaunchDaemons/ssh.plist /Library/LaunchDaemons/ssh.plist

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+shopt -s nullglob nocaseglob
+
+# stop screensaver from wheezing the juice
+defaults -currentHost write com.apple.screensaver idleTime 0
+
+# kill feedback assistant
+pkill Feedback
+
+# cleanup ssh enablement from install process
+sudo launchctl unload -w /Library/LaunchDaemons/ssh.plist
+sudo rm /Library/LaunchDaemons/ssh.plist
+sudo /usr/sbin/systemsetup -f -setremotelogin on 
+
+exit 0

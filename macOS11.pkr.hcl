@@ -1,6 +1,6 @@
 source "vmware-iso" "macOS_11" {
   iso_url              = "install_bits/macOS_1100_installer.iso"
-  iso_checksum         = "sha1:3fc8fb22a94cc1a0fc454fc2e85881acb4c3e803"
+  iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
   ssh_username         = "packer"
   ssh_password         = "packer"
   shutdown_command     = "sudo shutdown -h now"
@@ -21,8 +21,8 @@ source "vmware-iso" "macOS_11" {
     "board-id.reflectHost"         = "TRUE",
     "ich7m.present"                = "TRUE"
   }
-boot_key_interval = "20ms"
-boot_keygroup_interval = "2s"
+  boot_key_interval      = "20ms"
+  boot_keygroup_interval = "2s"
   boot_command = [
     "<enter><wait10s>",
     "<leftSuperon><f5><leftSuperoff>",
@@ -41,7 +41,43 @@ boot_keygroup_interval = "2s"
   memory = "24576"
 }
 
-build {
-  sources = ["sources.vmware-iso.macOS_11"]
+source "vmware-vmx" "macOS_11" {
+  ssh_username         = "packer"
+  ssh_password         = "packer"
+  boot_wait = "30s"
+  skip_compaction = true
+  tools_upload_flavor = "darwin"
+  tools_upload_path = "~/vmw_tools.iso"
+  tools_source_path = "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"
+  source_path = "output-macOS_11/packer-macOS_11.vmx"
+    shutdown_command     = "sudo shutdown -h now"
+    output_directory = "output-macOS_11-customize"
+
 }
 
+build {
+name = "base"
+  sources = ["sources.vmware-iso.macOS_11"]
+  provisioner "shell" {
+    expect_disconnect = true
+    pause_before = "2m" # needed for the first provisioner to let the OS finish booting
+    script = "scripts/os_settings.sh"
+  }
+}
+
+build {
+name = "customize"
+  sources = ["sources.vmware-vmx.macOS_11"]
+
+  provisioner "file"{
+  sources = ["install_bits/Xcode_12.2_beta_2.xip","install_bits/Command_Line_Tools_for_Xcode_12.2_beta_2.dmg"]
+  destination = "~/"
+}
+  provisioner "shell" {
+    expect_disconnect = true
+    scripts = [
+      "scripts/vmw_tools.sh",
+      "scripts/xcode.sh"
+      ]
+  }
+}

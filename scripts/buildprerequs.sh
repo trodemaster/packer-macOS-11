@@ -5,7 +5,7 @@ shopt -s nullglob nocaseglob
 
 # build the installer dmg
 cd submodules/macadmin-scripts/
-echo "Start OS installer download"
+echo "Start OS installer download. You will need to enter sudo pass a couple times."
 sudo ./installinstallmacos.py --seedprogram DeveloperSeed
 cd ../../
 
@@ -15,13 +15,13 @@ hdiutil attach submodules/macadmin-scripts/Install_macOS*.dmg -noverify -mountpo
 
 # built an ios
 # use this as a git submodule https://github.com/rtrouton/create_macos_vm_install_dmg/blob/master/create_macos_vm_install_dmg.sh
-echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh install_bits/dmg/Install\ macOS\ Big\ Sur\ Beta.app install_bits/
+echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh install_bits/dmg/Install\ macOS\ Big\ Sur\ Beta.app install_bits/ || true
 
 # ugly try to unmount any existing installer volumes
 hdiutil detach install_bits/dmg
 
 # output shasum
-echo "remember to update the shasum in the packer template"
-shasum -a 1 install_bits/macOS_1100_installer.iso
+echo "Updating the shasum file"
+shasum -a 256 install_bits/macOS_1100_installer.iso > install_bits/macOS_1100_installer.shasum
 
 exit 0
