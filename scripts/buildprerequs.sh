@@ -20,6 +20,9 @@ echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh
 # ugly try to unmount any existing installer volumes
 hdiutil detach install_bits/dmg
 
+# cleanup dmg of installer 
+rm install_bits/macOS_1100_installer.dmg
+
 # output shasum
 echo "Updating the shasum file"
 shasum -a 256 install_bits/macOS_1100_installer.iso > install_bits/macOS_1100_installer.shasum

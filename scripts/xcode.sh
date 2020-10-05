@@ -6,6 +6,7 @@ xip -x ~/Xcode*.xip
 
 echo "put xcode in place"
 sudo mv ~/Xcode*.app /Applications/
+xattr -d com.apple.quarantine /Applications/Xcode*.app
 
 echo "mount cli tools"
 hdiutil attach -quiet -noverify -mountpoint "/Volumes/Command Line Developer Tools/" ~/Command_Line_Tools_*.dmg 
@@ -17,7 +18,7 @@ echo "unmount cli tools"
 hdiutil detach "/Volumes/Command Line Developer Tools/"* -force -quiet   
 
 echo "Cleanup Xcode installer files"
-ls ~/Xcode*.xip
-ls ~/Command_Line_Tools_*.dmg
+rm ~/Xcode*.xip
+rm ~/Command_Line_Tools_*.dmg
 
 exit 0

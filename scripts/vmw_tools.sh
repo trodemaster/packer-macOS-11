@@ -3,7 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-# http://softwareupdate.vmware.com/cds/vmw-desktop/fusion/11.5.6/16696540/core/com.vmware.fusion.zip.tar
+# unmount installer if needed
+hdiutil unmount /Volumes/Install* || true
+sleep 3
 
 # mount tools iso
 hdiutil mount ~/vmw_tools.iso

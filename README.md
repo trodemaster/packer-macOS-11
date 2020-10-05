@@ -1,6 +1,6 @@
 # packer-macos-11
 
-This is very rough beginnings of a packer template for macOS 11 with VMware fusion 12. 
+This is the beginnings of a packer template for macOS 11 with VMware fusion 12. 
 
 ## What's working
 * [scripts/buildprerequs.sh](buildprerequs.sh) working with imported submodules
@@ -12,10 +12,10 @@ This is very rough beginnings of a packer template for macOS 11 with VMware fusi
 * Clearing setup screens
 * Enable remotelogin system settings
 * Install Xcode & cli tools
+* softwareupdate
 
 ## What's missing
 * Get rid of feedback assistant popup
-* softwareupdate
 * export fusion happy .ova
 * Profile to adjust a bunch of settings
 
