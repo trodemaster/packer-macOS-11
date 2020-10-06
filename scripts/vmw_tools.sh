@@ -3,12 +3,8 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-# unmount installer if needed
-hdiutil unmount /Volumes/Install* || true
-sleep 3
-
 # mount tools iso
-hdiutil mount ~/vmw_tools.iso
+hdiutil mount ~/darwin.iso
 
 # install tools pkg
 sudo installer -pkg "/Volumes/VMware Tools/Install VMware Tools.app/Contents/Resources/VMware Tools.pkg" -target / || true
@@ -19,7 +15,7 @@ sudo installer -pkg "/Volumes/VMware Tools/Install VMware Tools.app/Contents/Res
 
 # cleanup
 hdiutil unmount /Volumes/VMware\ Tools
-rm  ~/vmw_tools.iso
+rm  ~/darwin.iso
 
 # restart the box
 sudo reboot

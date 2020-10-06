@@ -1,6 +1,7 @@
 source "vmware-iso" "macOS_11" {
   iso_url              = "install_bits/macOS_1100_installer.iso"
   iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
+  output_directory    = "output/{{build_name}}"
   ssh_username         = "packer"
   ssh_password         = "packer"
   shutdown_command     = "sudo shutdown -h now"
@@ -48,8 +49,7 @@ source "vmware-vmx" "macOS_11" {
   skip_compaction     = true
   source_path         = "output-macOS_11/packer-macOS_11.vmx"
   shutdown_command    = "sudo shutdown -h now"
-  output_directory    = "output-macOS_11-customize"
-
+  output_directory    = "output/{{build_name}}"
 }
 
 build {
