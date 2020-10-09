@@ -24,12 +24,12 @@ I'll give the comunity a few months to sort out any reasonable options for these
 * VMware Fusion 12.0 or greater
 
 ## Upate submodules
-After cloneing this repo you must pull down the submodules by running the following command from the root of the repo.
+After cloning this repo you must pull down the submodules by running the following command from the root of the repo.
 
     git submodule update --remote
 
 ## Adjust resources
-It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source deffinition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
+It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source definition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
 ```
   cpus   = "2"
   cores  = "2"
@@ -56,7 +56,7 @@ install_bits/
 ```
 
 ## Named builds
-This template has two named builds base and customize. The idea here is splitting the lenghthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os instal with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if your not testing the customizations likely what you want to use. 
+This template has two named builds base and customize. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os install with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if you're not testing the customizations likely what you want to use. 
 
 ### Building the full image 
 Builds the VM with all the options including Xcode
@@ -77,3 +77,9 @@ Useful for testing customizations without waiting for the whole OS to install.
 Reminder for the author of this template on how to build em all at the same time.
 
     packer build -force -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl & packer build -force -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl && packer build -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
+
+### Username & Password
+The build process created a packer user with UID 502. It's recommened to login with that account and create a new user with appropriate password. 
+
+    Username: packer
+    Password: packer
