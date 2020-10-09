@@ -23,7 +23,15 @@ I'll give the comunity a few months to sort out any reasonable options for these
 * Minimum packer version is 1.6.4 and not coded into the template due to [ min_packer_version JSON key not supported ](https://github.com/hashicorp/packer/issues/9284)
 * VMware Fusion 12.0 or greater
 
-## Prerequesits and install bits
+## Adjust resources
+It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source deffinition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
+```
+  cpus   = "2"
+  cores  = "2"
+  memory = "4096"
+```
+
+## Prerequesit installer bits
 I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
 
 Thanks to all contributors of the following project that are imported as submodlues!\
@@ -44,14 +52,6 @@ install_bits/
 
 ## Named builds
 This template has two named builds base and customize. The idea here is splitting the lenghthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os instal with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if your not testing the customizations likely what you want to use. 
-
-## Adjust resources
-It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source deffinition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
-```
-  cpus   = "2"
-  cores  = "2"
-  memory = "4096"
-```
 
 ### Building the full image 
 Builds the VM with all the options including Xcode
