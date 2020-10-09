@@ -6,7 +6,8 @@ xip -x ~/Xcode*.xip
 
 echo "put xcode in place"
 sudo mv ~/Xcode*.app /Applications/
-xattr -d com.apple.quarantine /Applications/Xcode*.app
+#xattr -d com.apple.quarantine /Applications/Xcode*.app
+# validate xcode app somehow
 
 echo "mount cli tools"
 hdiutil attach -quiet -noverify -mountpoint "/Volumes/Command Line Developer Tools/" ~/Command_Line_Tools_*.dmg 
