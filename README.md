@@ -31,7 +31,7 @@ Thanks to all contributors of the following project that are imported as submodl
 
 With the customize build I'm installing Xcode beta. Grab both the latest Xcode .xip and matching command line tools installer dmg from developer.apple.com. Toss them into the install_bits directory. 
 
-Here is what your install_bits directory should look like to successfully build the full image. Downloading Xcode and cli tools from https://developer.apple.com is not automated.
+Here is what your install_bits directory should look like to successfully build the full image. 
 ```
 install_bits/
 ├── Command_Line_Tools_for_Xcode_12.2_beta_2.dmg
