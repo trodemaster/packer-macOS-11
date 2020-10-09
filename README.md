@@ -55,19 +55,19 @@ It's likely you will need to adjust the cpu and RAM requirements to match your a
 ### Building the full image 
 Builds the VM with all the options including Xcode
 
-    packer build -only=full.vmware-iso.macOS11 macOS_11.pkr.hcl
+    packer build -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl
 
 ### Building the base image
 Builds just the OS including VMware tools
 
-    packer build -only=base.vmware-iso.macOS11_base macOS_11.pkr.hcl
+    packer build -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl
 
 ### Building the customize image
 Useful for testing customizations without waiting for the whole OS to install.
 
-    packer build -only=customize.vmware-vmx.macOS11 -on-error=abort macOS_11.pkr.hcl
+    packer build -only=customize.vmware-vmx.macOS_11 -on-error=abort macOS_11.pkr.hcl
 
 ### Build all for testing
 Reminder for the author of this template on how to build em all at the same time.
 
-    packer build -force -only=full.vmware-iso.macOS11 macOS_11.pkr.hcl & packer build -force -only=base.vmware-iso.macOS11_base macOS_11.pkr.hcl && packer build -only=customize.vmware-vmx.macOS11_customize macOS_11.pkr.hcl
+    packer build -force -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl & packer build -force -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl && packer build -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
