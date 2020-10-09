@@ -16,6 +16,7 @@ This a packer template for macOS 11 built on VMware fusion 12. It's created usin
 ## What's missing
 I'll give the comunity a few months to sort out any reasonable options for these. Not interested in creating a full MDM workflow here.
 * Get rid of feedback assistant popup
+* Approve VMware tools system extension and helper tool
 * Profile to adjust a bunch of settings
 
 ## Building macOS 11 with this packer template
