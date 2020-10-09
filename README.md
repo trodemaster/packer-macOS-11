@@ -23,6 +23,11 @@ I'll give the comunity a few months to sort out any reasonable options for these
 * Minimum packer version is 1.6.4 and not coded into the template due to [ min_packer_version JSON key not supported ](https://github.com/hashicorp/packer/issues/9284)
 * VMware Fusion 12.0 or greater
 
+## Upate submodules
+After cloneing this repo you must pull down the submodules by running the following command from the root of the repo.
+
+    git submodule update --remote
+
 ## Adjust resources
 It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source deffinition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
 ```
