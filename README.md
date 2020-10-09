@@ -25,13 +25,13 @@ I'll give the comunity a few months to sort out any reasonable options for these
 ## Prerequesits and install bits
 I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
 
-Thanks to all contributors of the following project that are imported as submodlues!
-https://github.com/rtrouton/create_macos_vm_install_dmg
-https://github.com/munki/macadmin-scripts
+Thanks to all contributors of the following project that are imported as submodlues!\
+[create_macos_vm_install_dmg](https://github.com/rtrouton/create_macos_vm_install_dmg)\
+[macadmin-scripts](https://github.com/munki/macadmin-scripts)
 
 With the customize build I'm installing Xcode beta. Grab both the latest Xcode .xip and matching command line tools installer dmg from developer.apple.com. Toss them into the install_bits directory. 
 
-Here is what your install_bits directory should look like to successfully build the full image. Downloading Xcode and cli tools from https://developer.apple.com is a user powered process.
+Here is what your install_bits directory should look like to successfully build the full image. Downloading Xcode and cli tools from https://developer.apple.com is not automated.
 ```
 install_bits/
 ├── Command_Line_Tools_for_Xcode_12.2_beta_2.dmg
