@@ -1,6 +1,6 @@
 # packer-macOS-11
 
-This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer hcl2 syntax wich curently has some known issues.  [HCL2: implementation list[]](https://github.com/hashicorp/packer/issues/9176) 
+This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer hcl2 syntax wich curently has some known issues.  [HCL2: implementation list](https://github.com/hashicorp/packer/issues/9176) 
 
 ## What's working
 * [scripts/buildprerequs.sh](buildprerequs.sh) creates a macOS installer .iso
