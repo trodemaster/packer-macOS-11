@@ -4,4 +4,4 @@
 [submodule "submodules/macadmin-scripts"]
 	path = submodules/macadmin-scripts
 	url = https://github.com/grahampugh/macadmin-scripts
-  branch = main
+	branch = main
