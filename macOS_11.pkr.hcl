@@ -1,7 +1,7 @@
 # Full build 
 build {
   name    = "full"
-  sources = ["sources.vmware-iso.macOS11"]
+  sources = ["sources.vmware-iso.macOS_11"]
 
   provisioner "shell" {
     expect_disconnect = true
@@ -24,8 +24,8 @@ build {
 
 }
 
-source "vmware-iso" "macOS11" {
-  vm_name              = "macOS11"
+source "vmware-iso" "macOS_11" {
+  vm_name              = "macOS_11"
   iso_url              = "install_bits/macOS_1100_installer.iso"
   iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
   output_directory     = "output/{{build_name}}"
@@ -72,7 +72,7 @@ source "vmware-iso" "macOS11" {
 # Base build
 build {
   name    = "base"
-  sources = ["sources.vmware-iso.macOS11_base"]
+  sources = ["sources.vmware-iso.macOS_11_base"]
 
   provisioner "shell" {
     expect_disconnect = true
@@ -93,8 +93,8 @@ build {
   }
 }
 
-source "vmware-iso" "macOS11_base" {
-  vm_name              = "macOS11_base"
+source "vmware-iso" "macOS_11_base" {
+  vm_name              = "macOS_11_base"
   iso_url              = "install_bits/macOS_1100_installer.iso"
   iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
   output_directory     = "output/{{build_name}}"
@@ -139,20 +139,20 @@ source "vmware-iso" "macOS11_base" {
 }
 
 # Customize build
-source "vmware-vmx" "macOS11_customize" {
-  vm_name          = "macOS11_customize"
+source "vmware-vmx" "macOS_11_customize" {
+  vm_name          = "macOS_11_customize" # seems like this value is not being picked up by packer
   ssh_username     = "packer"
   ssh_password     = "packer"
   boot_wait        = "30s"
   skip_compaction  = true
-  source_path      = "output/macOS11_base/packer-macOS11_base.vmx"
+  source_path      = "output/macOS_11_base/macOS_11_base.vmx"
   shutdown_command = "sudo shutdown -h now"
   output_directory = "output/{{build_name}}"
 }
 
 build {
   name    = "customize"
-  sources = ["sources.vmware-vmx.macOS11_customize"]
+  sources = ["sources.vmware-vmx.macOS_11_customize"]
 
   provisioner "file" {
     sources     = ["install_bits/Xcode_12.2_beta_2.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_2.dmg"]
