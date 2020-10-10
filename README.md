@@ -26,7 +26,7 @@ I'll give the comunity a few months to sort out any reasonable options for these
 ## Upate submodules
 After cloning this repo you must pull down the submodules by running the following command from the root of the repo.
 
-    #git submodule update --remote
+    git submodule update --remote
     git submodule update --init --recursive
 
 ## Adjust resources
