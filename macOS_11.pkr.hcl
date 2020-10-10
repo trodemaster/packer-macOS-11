@@ -64,8 +64,8 @@ source "vmware-iso" "macOS_11" {
     "chmod +x /var/root/bootstrap.sh<enter>",
     "/var/root/bootstrap.sh<enter>"
   ]
-  cpus   = "8"
-  cores  = "8"
+  cpus   = "6"
+  cores  = "6"
   memory = "24576"
 }
 
@@ -133,8 +133,8 @@ source "vmware-iso" "macOS_11_base" {
     "chmod +x /var/root/bootstrap.sh<enter>",
     "/var/root/bootstrap.sh<enter>"
   ]
-  cpus   = "8"
-  cores  = "8"
+  cpus   = "6"
+  cores  = "6"
   memory = "24576"
 }
 
