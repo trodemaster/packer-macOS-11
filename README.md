@@ -27,7 +27,8 @@ I'll give the comunity a few months to sort out any reasonable options for these
 After cloning this repo you must pull down the submodules by running the following command from the root of the repo.
 
     git submodule update --remote
-
+    git submodule update --init --recursive
+    
 ## Adjust resources
 It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source definition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
 ```
@@ -56,7 +57,7 @@ install_bits/
 ```
 
 ## Named builds
-This template has two named builds base and customize. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os install with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if you're not testing the customizations likely what you want to use. 
+This template has three named builds base, customize and full. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os install with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if you're not testing the customizations likely what you want to use. 
 
 ### Building the full image 
 Builds the VM with all the options including Xcode
