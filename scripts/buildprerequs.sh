@@ -18,7 +18,7 @@ hdiutil attach submodules/macadmin-scripts/Install_macOS*.dmg -noverify -mountpo
 echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh install_bits/dmg/Install\ macOS\ Big\ Sur\ Beta.app install_bits/ || true
 
 # ugly try to unmount any existing installer volumes
-hdiutil detach install_bits/dmg
+hdiutil detach install_bits/dmg -force
 
 # cleanup dmg of installer 
 rm install_bits/macOS_1100_installer.dmg

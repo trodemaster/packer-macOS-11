@@ -155,7 +155,7 @@ build {
   sources = ["sources.vmware-vmx.macOS_11_customize"]
 
   provisioner "file" {
-    sources     = ["install_bits/Xcode_12.2_beta_2.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_2.dmg"]
+    sources     = ["install_bits/Xcode_12.2_beta_3.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_3.dmg"]
     destination = "~/"
   }
   provisioner "shell" {

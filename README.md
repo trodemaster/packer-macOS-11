@@ -72,7 +72,7 @@ Builds just the OS including VMware tools
 ### Building the customize image
 Useful for testing customizations without waiting for the whole OS to install.
 
-    packer build -only=customize.vmware-vmx.macOS_11 -on-error=abort macOS_11.pkr.hcl
+    packer build -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
 
 ### Build all for testing
 Reminder for the author of this template on how to build em all at the same time.
