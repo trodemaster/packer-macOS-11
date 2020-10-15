@@ -5,3 +5,6 @@
 	path = submodules/macadmin-scripts
 	url = https://github.com/grahampugh/macadmin-scripts
 	branch = main
+[submodule "submodules/pycreateuserpkg"]
+	path = submodules/pycreateuserpkg
+	url = https://github.com/gregneagle/pycreateuserpkg.git

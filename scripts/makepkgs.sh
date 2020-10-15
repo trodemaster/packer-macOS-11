@@ -1,2 +1,2 @@
-productbuild --package packages/setupsshlogin/build/setupsshlogin.pkg http/setupsshlogin.pkg
-~/code/pycreateuserpkg/createuserpkg -n packer -u 502 -f packer -a -A -d -V 3 -i com.netjibbing.packer -p packer ~/code/packer-macos-11/http/packer.pkg
+./submodules/pycreateuserpkg/createuserpkg -n packer -u 502 -f packer -a -A -d -V 3 -i com.netjibbing.packer -p packer ./http/packer.pkg
+./submodules/pycreateuserpkg/createuserpkg -n vagrant -u 502 -f vagrant -a -A -d -V 3 -i com.netjibbing.vagrant -p vagrant ./http/vagrant.pkg

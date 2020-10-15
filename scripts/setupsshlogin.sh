@@ -12,6 +12,7 @@ defaults -currentHost write com.apple.screensaver idleTime 0
 
 # sudo nopasswd for packer user
 echo 'packer     ALL=(ALL)       NOPASSWD: ALL' >/private/etc/sudoers.d/packer
+echo 'vagrant    ALL=(ALL)       NOPASSWD: ALL' >/private/etc/sudoers.d/vagrant
 
 # supress setup screens
 touch /private/var/db/.AppleSetupDone

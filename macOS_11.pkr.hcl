@@ -1,4 +1,4 @@
-# Full build 
+# Full build
 build {
   name    = "full"
   sources = ["sources.vmware-iso.macOS_11"]
@@ -91,6 +91,8 @@ build {
       "scripts/vmw_tools.sh"
     ]
   }
+
+  post-processor "vagrant" {}
 }
 
 source "vmware-iso" "macOS_11_base" {
@@ -135,7 +137,7 @@ source "vmware-iso" "macOS_11_base" {
   ]
   cpus   = "6"
   cores  = "6"
-  memory = "24576"
+  memory = "8192"
 }
 
 # Customize build

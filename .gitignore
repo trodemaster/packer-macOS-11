@@ -1,5 +1,6 @@
 # Cache objects
 packer_cache/
+content/
 
 # Crash log
 crash.log
