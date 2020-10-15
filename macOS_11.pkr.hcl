@@ -10,15 +10,15 @@ build {
   }
 
   provisioner "file" {
-    sources     = ["install_bits/Xcode_12.2_beta_2.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_2.dmg", "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
+    sources     = ["install_bits/Xcode_12.2_beta_3.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_3.dmg", "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
     destination = "~/"
   }
   provisioner "shell" {
     expect_disconnect = true
     scripts = [
       "scripts/vmw_tools.sh",
-      "scripts/xcode.sh",
-      "scripts/softwareupdate.sh"
+      "scripts/xcode.sh"
+#      "scripts/softwareupdate.sh"
     ]
   }
 
@@ -159,10 +159,15 @@ build {
     destination = "~/"
   }
   provisioner "shell" {
-    expect_disconnect = true
     scripts = [
-      "scripts/xcode.sh",
-      "scripts/softwareupdate.sh"
+      "scripts/xcode.sh"
     ]
   }
+#  provisioner "shell" {
+#    expect_disconnect = true
+#    scripts = [
+#      "scripts/softwareupdate.sh",
+#      "scripts/softwareupdate_complete.sh"
+#    ]
+#  }
 }

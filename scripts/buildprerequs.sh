@@ -5,12 +5,14 @@ shopt -s nullglob nocaseglob
 
 # build the installer dmg
 cd submodules/macadmin-scripts/
+sudo rm Install_macOS*.dmg || true
 echo "Start OS installer download. You will need to enter sudo pass a couple times."
 sudo ./installinstallmacos.py --seedprogram DeveloperSeed
 cd ../../
 
 # mount the installer dmg
 # setup gitignore for install_bits dir
+
 hdiutil attach submodules/macadmin-scripts/Install_macOS*.dmg -noverify -mountpoint install_bits/dmg
 
 # built an ios
