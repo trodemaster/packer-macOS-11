@@ -1,6 +1,7 @@
 # Cache objects
 packer_cache/
 content/
+*.sparseimage
 
 # Crash log
 crash.log
