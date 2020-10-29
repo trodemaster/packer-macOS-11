@@ -62,12 +62,12 @@ This template has three named builds base, customize and full. The idea here is 
 ### Building the full image 
 Builds the VM with all the options including Xcode
 
-    packer build -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl
+    packer build -force -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl
 
 ### Building the base image
 Builds just the OS including VMware tools
 
-    packer build -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl
+    packer build -force -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl
 
 ### Building the customize image
 Useful for testing customizations without waiting for the whole OS to install.
@@ -84,3 +84,6 @@ The build process created a packer user with UID 502. It's recommened to login w
 
     Username: packer
     Password: packer
+
+    If you want to overide the username and password they can be specified on the cli
+    packer build -force -only=full.vmware-iso.macOS_11 -var user_password=vagrant -var user_username=vagrant macOS_11.pkr.hcl

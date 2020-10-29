@@ -3,9 +3,14 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
+# cleanup the old ish
+sudo rm submodules/macadmin-scripts/*.dmg > /dev/null 2>&1 || true
+sudo rm submodules/macadmin-scripts/*.iso > /dev/null 2>&1 || true
+rm install_bits/*.iso > /dev/null 2>&1 || true
+rm install_bits/*.shasum > /dev/null 2>&1 || true
+
 # build the installer dmg
 cd submodules/macadmin-scripts/
-sudo rm Install_macOS*.dmg || true
 echo "Start OS installer download. You will need to enter sudo pass a couple times."
 sudo ./installinstallmacos.py --seedprogram DeveloperSeed
 cd ../../
@@ -23,10 +28,14 @@ echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh
 hdiutil detach install_bits/dmg -force
 
 # cleanup dmg of installer 
-rm install_bits/macOS_1100_installer.dmg
+rm install_bits/macOS_*_installer.dmg
+
+# get iso name
+ISO_NAME=$(basename install_bits/macOS_*_installer.iso)
+FILE_NAME=$(cut -f 1 -d .<<<$ISO_NAME)
 
 # output shasum
 echo "Updating the shasum file"
-shasum -a 256 install_bits/macOS_1100_installer.iso > install_bits/macOS_1100_installer.shasum
+shasum -a 256 install_bits/$ISO_NAME > install_bits/$FILE_NAME.shasum
 
 exit 0

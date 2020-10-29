@@ -1,3 +1,23 @@
+variable "iso_file_checksum" {
+  type    = string
+  default = "file:install_bits/macOS_1101_installer.shasum"
+}
+
+variable "iso_filename" {
+  type    = string
+  default = "install_bits/macOS_1101_installer.iso"
+}
+
+variable "user_password" {
+  type    = string
+  default = "packer"
+}
+
+variable "user_username" {
+  type    = string
+  default = "packer"
+}
+
 # Full build 
 build {
   name    = "full"
@@ -28,11 +48,11 @@ source "vmware-iso" "macOS_11" {
   display_name         = "macOS 11"
   vm_name              = "macOS_11"
   vmdk_name            = "macOS_11"
-  iso_url              = "install_bits/macOS_1100_installer.iso"
-  iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
+  iso_url              = "${var.iso_filename}"
+  iso_checksum         = "${var.iso_file_checksum}"
   output_directory     = "output/{{build_name}}"
-  ssh_username         = "packer"
-  ssh_password         = "packer"
+  ssh_username         = "${var.user_username}"
+  ssh_password         = "${var.user_password}"
   shutdown_command     = "sudo shutdown -h now"
   guest_os_type        = "darwin20-64"
   cdrom_adapter_type   = "sata"
@@ -99,11 +119,11 @@ source "vmware-iso" "macOS_11_base" {
   display_name         = "macOS 11 base"
   vm_name              = "macOS_11_base"
   vmdk_name            = "macOS_11_base"
-  iso_url              = "install_bits/macOS_1100_installer.iso"
-  iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
+  iso_url              = "${var.iso_filename}"
+  iso_checksum         = "${var.iso_file_checksum}"
   output_directory     = "output/{{build_name}}"
-  ssh_username         = "packer"
-  ssh_password         = "packer"
+  ssh_username         = "${var.user_username}"
+  ssh_password         = "${var.user_password}"
   shutdown_command     = "sudo shutdown -h now"
   guest_os_type        = "darwin20-64"
   cdrom_adapter_type   = "sata"

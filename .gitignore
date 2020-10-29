@@ -8,3 +8,4 @@ crash.log
 *.box
 .DS_Store
 output*
+content
