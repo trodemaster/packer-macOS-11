@@ -25,7 +25,9 @@ build {
 }
 
 source "vmware-iso" "macOS_11" {
+  display_name         = "macOS 11"
   vm_name              = "macOS_11"
+  vmdk_name            = "macOS_11"
   iso_url              = "install_bits/macOS_1100_installer.iso"
   iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
   output_directory     = "output/{{build_name}}"
@@ -39,7 +41,7 @@ source "vmware-iso" "macOS_11" {
   http_directory       = "http"
   network_adapter_type = "e1000e"
   disk_type_id         = "0"
-  boot_wait            = "140s"
+  boot_wait            = "180s"
   ssh_timeout          = "12h"
   usb                  = "true"
   version              = "18"
@@ -94,7 +96,9 @@ build {
 }
 
 source "vmware-iso" "macOS_11_base" {
+  display_name         = "macOS 11 base"
   vm_name              = "macOS_11_base"
+  vmdk_name            = "macOS_11_base"
   iso_url              = "install_bits/macOS_1100_installer.iso"
   iso_checksum         = "file:install_bits/macOS_1100_installer.shasum"
   output_directory     = "output/{{build_name}}"
@@ -108,7 +112,7 @@ source "vmware-iso" "macOS_11_base" {
   http_directory       = "http"
   network_adapter_type = "e1000e"
   disk_type_id         = "0"
-  boot_wait            = "140s"
+  boot_wait            = "180s"
   ssh_timeout          = "12h"
   usb                  = "true"
   version              = "18"
@@ -140,7 +144,9 @@ source "vmware-iso" "macOS_11_base" {
 
 # Customize build
 source "vmware-vmx" "macOS_11_customize" {
-  vm_name          = "macOS_11_customize" # seems like this value is not being picked up by packer
+  display_name         = "macOS 11 customize"
+  vm_name              = "macOS_11_customize"
+  vmdk_name            = "macOS_11_customize"
   ssh_username     = "packer"
   ssh_password     = "packer"
   boot_wait        = "30s"
