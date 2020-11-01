@@ -72,7 +72,7 @@ Builds just the OS including VMware tools
 ### Building the customize image
 Useful for testing customizations without waiting for the whole OS to install.
 
-    packer build -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
+    packer build -force -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
 
 ### Build all for testing
 Reminder for the author of this template on how to build em all at the same time.
@@ -80,7 +80,7 @@ Reminder for the author of this template on how to build em all at the same time
     packer build -force -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl & packer build -force -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl && packer build -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
 
 ### Username & Password
-The build process created a packer user with UID 502. It's recommened to login with that account and create a new user with appropriate password. 
+The build process created a packer user with UID 502. It's recommened to login with that account and create a new user with appropriate password when you start using the VM. 
 
     Username: packer
     Password: packer
