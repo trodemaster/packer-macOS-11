@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# test for gnu sed
+if ! ( command -v jq > /dev/null 2>&1 ); then
+  echo "This script requires gnu sed to work properly."
+  exit 1
+fi
+
 # get the bridge interface used by internet sharing
 BRIDGE_IF=$(pgrep -lf rtadvd | grep -E -o "bridge[0-9]+")
 
