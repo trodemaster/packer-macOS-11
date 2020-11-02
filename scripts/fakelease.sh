@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # test for gnu sed
-if ! ( command -v jq > /dev/null 2>&1 ); then
+if ! ( command -v /opt/local/libexec/gnubin/sed > /dev/null 2>&1 ); then
   echo "This script requires gnu sed to work properly."
   exit 1
 fi
@@ -32,4 +32,6 @@ lease $VM_IP {
         client-hostname "faker";
 }
 FAKELEASE
-
+echo "###################vmnet-dhcpd-vmnet8.leases#####################"
+cat /private/var/db/vmware/vmnet-dhcpd-vmnet8.leases
+echo "###################vmnet-dhcpd-vmnet8.leases#####################"
