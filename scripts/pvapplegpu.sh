@@ -7,9 +7,10 @@ else
   echo "The target vmx file $1 doesn't exist"
 fi
 
-VMX_FILE=$(sed -r "s/\s/\\\s/g" <<<$1)
+VMX_FILE=$(sed "s/\\/\\ /g" <<<$1)
 echo $VMX_FILE
 
+exit 0
 # svga.present
 if (grep -q svga.present $1); then
   /opt/local/libexec/gnubin/sed -i 's/svga.present.*/svga.present="FALSE"/g' "$1"
