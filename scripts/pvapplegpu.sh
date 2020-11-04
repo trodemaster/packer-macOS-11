@@ -8,7 +8,7 @@ else
 fi
 
 # svga.present
-if (grep -q svga.present "${1}"); then
+if (grep -q svga.present $1); then
   /opt/local/libexec/gnubin/sed -i 's/svga.present.*/svga.present="FALSE"/g' "$1"
 else
   echo 'svga.present="FALSE"' >>"$1"
