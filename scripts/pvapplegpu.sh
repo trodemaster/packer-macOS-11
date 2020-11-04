@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 # confirm the vmx file provided exists
-if ! [[ -e $1 ]]; then
-    echo "The target vmx file $1 doesn't exist"
+if [[ -e $1 ]]; then
+  echo "Updating $1"
+else
+  echo "The target vmx file $1 doesn't exist"
 fi
 
 # svga.present
