@@ -36,6 +36,6 @@ else
 fi
 
 # view the config
-grep '^appleGPU0\|^svga' $1
+grep '^appleGPU0\|^svga' "$1"
 
 exit 0
