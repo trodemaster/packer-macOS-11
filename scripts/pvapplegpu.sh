@@ -10,7 +10,6 @@ fi
 VMX_FILE=$(sed 's/ /\\ /g' <<<$1)
 echo $VMX_FILE
 
-exit 0
 # svga.present
 if (grep -q svga.present $VMX_FILE); then
   /opt/local/libexec/gnubin/sed -i 's/svga.present.*/svga.present="FALSE"/g' "$VMX_FILE"
