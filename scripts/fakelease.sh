@@ -35,4 +35,4 @@ FAKELEASE
 echo "###################vmnet-dhcpd-vmnet8.leases#####################"
 cat /private/var/db/vmware/vmnet-dhcpd-vmnet8.leases
 echo "###################vmnet-dhcpd-vmnet8.leases#####################"
- ping -c 1 $VM_IP
+ping -c 1 $VM_IP
