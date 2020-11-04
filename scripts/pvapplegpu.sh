@@ -37,3 +37,5 @@ fi
 
 # view the config
 grep '^appleGPU0\|^svga'
+
+exit 0
