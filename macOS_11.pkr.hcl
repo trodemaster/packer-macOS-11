@@ -30,7 +30,7 @@ build {
   }
 
   provisioner "file" {
-    sources     = ["install_bits/Xcode_12.2_beta_3.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_3.dmg", "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
+    sources     = ["install_bits/Xcode_12.2_Release_Candidate.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_Release_Candidate.dmg", "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
     destination = "~/"
   }
   provisioner "shell" {
@@ -181,7 +181,7 @@ build {
   sources = ["sources.vmware-vmx.macOS_11_customize"]
 
   provisioner "file" {
-    sources     = ["install_bits/Xcode_12.2_beta_3.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_beta_3.dmg"]
+    sources     = ["install_bits/Xcode_12.2_Release_Candidate.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_Release_Candidate.dmg"]
     destination = "~/"
   }
   provisioner "shell" {
