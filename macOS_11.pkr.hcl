@@ -140,6 +140,8 @@ source "vmware-iso" "macOS_11_base" {
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
     "board-id.reflectHost"         = "TRUE",
+    "hw.model.reflectHost"         = "TRUE",
+    "smbios.reflectHost"          = "TRUE",
     "ich7m.present"                = "TRUE"
   }
   boot_key_interval      = "20ms"
