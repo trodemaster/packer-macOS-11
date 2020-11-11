@@ -7,7 +7,7 @@ shopt -s nullglob nocaseglob
 defaults -currentHost write com.apple.screensaver idleTime 0
 
 # kill feedback assistant
-pkill Feedback
+pkill Feedback || true
 
 # cleanup ssh enablement from install process
 sudo launchctl unload -w /Library/LaunchDaemons/ssh.plist
