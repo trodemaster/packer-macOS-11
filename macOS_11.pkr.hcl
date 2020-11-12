@@ -38,7 +38,7 @@ build {
     scripts = [
       "scripts/vmw_tools.sh",
       "scripts/xcode.sh"
-#      "scripts/softwareupdate.sh"
+      #      "scripts/softwareupdate.sh"
     ]
   }
 
@@ -69,6 +69,7 @@ source "vmware-iso" "macOS_11" {
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
     "board-id.reflectHost"         = "TRUE",
+    "tools.upgrade.policy"         = "manual",
     "ich7m.present"                = "TRUE"
   }
   boot_key_interval      = "20ms"
@@ -80,6 +81,9 @@ source "vmware-iso" "macOS_11" {
     "u<down><down><down>",
     "<enter>",
     "<leftSuperon><f5><leftSuperoff><wait10>",
+    "<leftCtrlon><f2><leftCtrloff>",
+    "w<down><down>",
+    "<enter>",
     "curl -o /var/root/packer.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/packer.pkg<enter>",
     "curl -o /var/root/setupsshlogin.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/setupsshlogin.pkg<enter>",
     "curl -o /var/root/bootstrap.sh http://{{ .HTTPIP }}:{{ .HTTPPort }}/bootstrap.sh<enter>",
@@ -139,9 +143,8 @@ source "vmware-iso" "macOS_11_base" {
   vmx_data = {
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
-    "board-id.reflectHost"         = "TRUE",
-    "hw.model.reflectHost"         = "TRUE",
-    "smbios.reflectHost"          = "TRUE",
+    "smbios.reflectHost"           = "TRUE",
+    "tools.upgrade.policy"         = "manual",
     "ich7m.present"                = "TRUE"
   }
   boot_key_interval      = "20ms"
@@ -153,6 +156,9 @@ source "vmware-iso" "macOS_11_base" {
     "u<down><down><down>",
     "<enter>",
     "<leftSuperon><f5><leftSuperoff><wait10>",
+    "<leftCtrlon><f2><leftCtrloff>",
+    "w<down><down>",
+    "<enter>",
     "curl -o /var/root/packer.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/packer.pkg<enter>",
     "curl -o /var/root/setupsshlogin.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/setupsshlogin.pkg<enter>",
     "curl -o /var/root/bootstrap.sh http://{{ .HTTPIP }}:{{ .HTTPPort }}/bootstrap.sh<enter>",
@@ -166,9 +172,9 @@ source "vmware-iso" "macOS_11_base" {
 
 # Customize build
 source "vmware-vmx" "macOS_11_customize" {
-  display_name         = "macOS 11 customize"
-  vm_name              = "macOS_11_customize"
-  vmdk_name            = "macOS_11_customize"
+  display_name     = "macOS 11 customize"
+  vm_name          = "macOS_11_customize"
+  vmdk_name        = "macOS_11_customize"
   ssh_username     = "packer"
   ssh_password     = "packer"
   boot_wait        = "30s"
@@ -191,11 +197,11 @@ build {
       "scripts/xcode.sh"
     ]
   }
-#  provisioner "shell" {
-#    expect_disconnect = true
-#    scripts = [
-#      "scripts/softwareupdate.sh",
-#      "scripts/softwareupdate_complete.sh"
-#    ]
-#  }
+  #  provisioner "shell" {
+  #    expect_disconnect = true
+  #    scripts = [
+  #      "scripts/softwareupdate.sh",
+  #      "scripts/softwareupdate_complete.sh"
+  #    ]
+  #  }
 }
