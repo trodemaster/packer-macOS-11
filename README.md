@@ -32,7 +32,7 @@ After cloning this repo you must pull down the submodules by running the followi
 ## Adjust resources
 It's likely you will need to adjust the cpu and RAM requirements to match your available resources. The variables can be edited in the template directly or passed on the cli. 
 
-packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count=2 -var ram_gb=6 macOS_11.pkr.hcl
+    packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count=2 -var ram_gb=6 macOS_11.pkr.hcl
 
 ## Prerequesit installer bits
 I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
@@ -71,11 +71,6 @@ Useful for testing customizations without waiting for the whole OS to install.
 
     packer build -force -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
 
-### Build all for testing
-Reminder for the author of this template on how to build em all at the same time.
-
-    packer build -force -only=full.vmware-iso.macOS_11 macOS_11.pkr.hcl & packer build -force -only=base.vmware-iso.macOS_11_base macOS_11.pkr.hcl && packer build -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
-
 ### Username & Password
 The build process created a packer user with UID 502. It's recommened to login with that account and create a new user with appropriate password when you start using the VM. 
 
@@ -88,4 +83,4 @@ The build process created a packer user with UID 502. It's recommened to login w
 ### Apple GPU support on Big Sur hosts
 If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the pvapplegpu.sh script with add the appropriate vmx entries to the specificed vmx file. The VM needs to be powered off for this change.
 
-scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx
+    scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx

@@ -91,8 +91,9 @@ source "vmware-iso" "macOS_11" {
   vmx_data = {
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
-    "board-id.reflectHost"         = "TRUE",
+    "smbios.reflectHost"           = "TRUE",
     "tools.upgrade.policy"         = "manual",
+    "ulm.disableMitigations"       = "TRUE",
     "ich7m.present"                = "TRUE"
   }
   boot_key_interval      = "20ms"
@@ -168,6 +169,7 @@ source "vmware-iso" "macOS_11_base" {
     "smbios.restrictSerialCharset" = "TRUE",
     "smbios.reflectHost"           = "TRUE",
     "tools.upgrade.policy"         = "manual",
+    "ulm.disableMitigations"       = "TRUE",
     "ich7m.present"                = "TRUE"
   }
   boot_key_interval      = "20ms"
