@@ -11,7 +11,6 @@ This a packer template for macOS 11 built on VMware fusion 12. It's created usin
 * Clearing setup screens
 * Enable remotelogin system settings
 * Install Xcode & cli tools
-* softwareupdate
 
 ## What's missing
 I'll give the comunity a few months to sort out any reasonable options for these. Not interested in creating a full MDM workflow here.
@@ -26,13 +25,7 @@ I'll give the comunity a few months to sort out any reasonable options for these
 ## Upate submodules
 After cloning this repo you must pull down the submodules by running the following command from the root of the repo.
 
-    git submodule update --remote
-    git submodule update --init --recursive
-
-## Adjust resources
-It's likely you will need to adjust the cpu and RAM requirements to match your available resources. The variables can be edited in the template directly or passed on the cli. 
-
-    packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count=2 -var ram_gb=6 macOS_11.pkr.hcl
+    git submodule update --init
 
 ## Prerequesit installer bits
 I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
@@ -71,14 +64,30 @@ Useful for testing customizations without waiting for the whole OS to install.
 
     packer build -force -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
 
+### Input variables
+This template uses input variables for a few customizable values. Run packer inspect to see the defaults and what can be changed. Editing the variable default in the macOS_11.pkr.hcl file works as well.
+
+    packer inspect macOS_11.pkr.hcl
+
+## Adjust resources
+It's likely you will need to adjust the cpu and RAM requirements to match your available resources. The variables can be edited in the template directly or passed on the cli. 
+
+    packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count=2 -var ram_gb=6 macOS_11.pkr.hcl
+
 ### Username & Password
 The build process created a packer user with UID 502. It's recommened to login with that account and create a new user with appropriate password when you start using the VM. 
 
     Username: packer
     Password: packer
 
-    If you want to overide the username and password they can be specified on the cli
+If you want to overide the username and password they can be specified on the cli
+
     packer build -force -only=full.vmware-iso.macOS_11 -var user_password=vagrant -var user_username=vagrant macOS_11.pkr.hcl
+
+### Customize computer serial and model
+Vairables have been added to customize board id, hardware model & serial number. This can be handy for testing DEP workflows.
+
+    packer build -force -only=full.vmware-iso.macOS_11 -var board_id=Mac-27AD2F918AE68F61 -var serial_number=M00000000001 -var hw_model="MacPro7,1" macOS_11.pkr.hcl
 
 ### Apple GPU support on Big Sur hosts
 If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the pvapplegpu.sh script with add the appropriate vmx entries to the specificed vmx file. The VM needs to be powered off for this change.

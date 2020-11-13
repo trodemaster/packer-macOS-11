@@ -42,6 +42,21 @@ variable "xcode_cli" {
   default = "install_bits/Command_Line_Tools_for_Xcode_12.2.dmg"
 }
 
+variable "board_id" {
+  type    = string
+  default = "Mac-27AD2F918AE68F61"
+}
+
+variable "hw_model" {
+  type    = string
+  default = "MacPro7,1"
+}
+
+variable "serial_number" {
+  type    = string
+  default = "M00000000001"
+}
+
 # Full build 
 build {
   name    = "full"
@@ -88,13 +103,19 @@ source "vmware-iso" "macOS_11" {
   ssh_timeout          = "12h"
   usb                  = "true"
   version              = "18"
-  vmx_data = {
+    vmx_data = {
+    "tools.upgrade.policy"         = "manual",
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
-    "smbios.reflectHost"           = "TRUE",
-    "tools.upgrade.policy"         = "manual",
     "ulm.disableMitigations"       = "TRUE",
     "ich7m.present"                = "TRUE"
+    "hw.model"                     = "${var.hw_model}",
+    "hw.model.reflectHost"         = "FALSE",
+    "smbios.reflectHost"           = "FALSE",
+    "board-id"                     = "${var.board_id}",
+    "serialNumber"                 = "${var.serial_number}",
+    "serialNumber.reflectHost"     = "FALSE",
+    "SMBIOS.use12CharSerialNumber" = "TRUE"
   }
   boot_key_interval      = "20ms"
   boot_keygroup_interval = "2s"
@@ -164,13 +185,19 @@ source "vmware-iso" "macOS_11_base" {
   ssh_timeout          = "12h"
   usb                  = "true"
   version              = "18"
-  vmx_data = {
+    vmx_data = {
+    "tools.upgrade.policy"         = "manual",
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
-    "smbios.reflectHost"           = "TRUE",
-    "tools.upgrade.policy"         = "manual",
     "ulm.disableMitigations"       = "TRUE",
     "ich7m.present"                = "TRUE"
+    "hw.model"                     = "${var.hw_model}",
+    "hw.model.reflectHost"         = "FALSE",
+    "smbios.reflectHost"           = "FALSE",
+    "board-id"                     = "${var.board_id}",
+    "serialNumber"                 = "${var.serial_number}",
+    "serialNumber.reflectHost"     = "FALSE",
+    "SMBIOS.use12CharSerialNumber" = "TRUE"
   }
   boot_key_interval      = "20ms"
   boot_keygroup_interval = "2s"
