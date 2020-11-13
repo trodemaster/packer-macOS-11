@@ -84,3 +84,8 @@ The build process created a packer user with UID 502. It's recommened to login w
 
     If you want to overide the username and password they can be specified on the cli
     packer build -force -only=full.vmware-iso.macOS_11 -var user_password=vagrant -var user_username=vagrant macOS_11.pkr.hcl
+
+### Apple GPU support on Big Sur hosts
+If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the pvapplegpu.sh script with add the appropriate vmx entries to the specificed vmx file. The VM needs to be powered off for this change.
+
+scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx
