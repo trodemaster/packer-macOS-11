@@ -13,6 +13,7 @@ rm install_bits/*.shasum > /dev/null 2>&1 || true
 cd submodules/macadmin-scripts/
 echo "Start OS installer download. You will need to enter sudo pass a couple times."
 sudo ./installinstallmacos.py --seedprogram DeveloperSeed --ignore-cache
+#sudo ./installinstallmacos.py3
 cd ../../
 
 # mount the installer dmg
