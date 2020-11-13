@@ -20,7 +20,7 @@ I'll give the comunity a few months to sort out any reasonable options for these
 * Profile to adjust a bunch of settings
 
 ## Building macOS 11 with this packer template
-* Minimum packer version is 1.6.4 and not coded into the template due to [ min_packer_version JSON key not supported ](https://github.com/hashicorp/packer/issues/9284)
+* Minimum packer version is 1.6.5
 * VMware Fusion 12.0 or greater
 
 ## Upate submodules
@@ -30,12 +30,9 @@ After cloning this repo you must pull down the submodules by running the followi
     git submodule update --init --recursive
 
 ## Adjust resources
-It's likely you will need to adjust the cpu and RAM requirements to match your available resources. Find the source definition for the named build your targeting and adjust the following values to size. Below is an example of workable lower specs. 
-```
-  cpus   = "2"
-  cores  = "2"
-  memory = "4096"
-```
+It's likely you will need to adjust the cpu and RAM requirements to match your available resources. The variables can be edited in the template directly or passed on the cli. 
+
+packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count=2 -var ram_gb=6 macOS_11.pkr.hcl
 
 ## Prerequesit installer bits
 I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
@@ -49,8 +46,8 @@ With the customize build I'm installing Xcode beta. Grab both the latest Xcode .
 Here is what your install_bits directory should look like to successfully build the full image. 
 ```
 install_bits/
-├── Command_Line_Tools_for_Xcode_12.2_beta_2.dmg
-├── Xcode_12.2_beta_2.xip
+├── Command_Line_Tools_for_Xcode_12.2.dmg
+├── Xcode_12.2.xip
 ├── dmg
 ├── macOS_1100_installer.iso
 └── macOS_1100_installer.shasum

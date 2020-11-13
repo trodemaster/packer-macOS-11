@@ -1,3 +1,7 @@
+packer {
+  required_version = ">= 1.6.5"
+}
+
 variable "iso_file_checksum" {
   type    = string
   default = "file:install_bits/macOS_1101_installer.shasum"
@@ -18,6 +22,26 @@ variable "user_username" {
   default = "packer"
 }
 
+variable "cpu_count" {
+  type    = number
+  default = "6"
+}
+
+variable "ram_gb" {
+  type    = number
+  default = "24"
+}
+
+variable "xcode" {
+  type    = string
+  default = "install_bits/Xcode_12.2.xip"
+}
+
+variable "xcode_cli" {
+  type    = string
+  default = "install_bits/Command_Line_Tools_for_Xcode_12.2.dmg"
+}
+
 # Full build 
 build {
   name    = "full"
@@ -30,7 +54,7 @@ build {
   }
 
   provisioner "file" {
-    sources     = ["install_bits/Xcode_12.2_Release_Candidate.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2_Release_Candidate.dmg", "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
+    sources     = [var.xcode, var.xcode_cli, "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
     destination = "~/"
   }
   provisioner "shell" {
@@ -38,7 +62,6 @@ build {
     scripts = [
       "scripts/vmw_tools.sh",
       "scripts/xcode.sh"
-      #      "scripts/softwareupdate.sh"
     ]
   }
 
@@ -90,9 +113,9 @@ source "vmware-iso" "macOS_11" {
     "chmod +x /var/root/bootstrap.sh<enter>",
     "/var/root/bootstrap.sh<enter>"
   ]
-  cpus   = "6"
-  cores  = "6"
-  memory = "24576"
+  cpus   = var.cpu_count
+  cores  = var.cpu_count
+  memory = var.ram_gb * 1024
 }
 
 # Base build
@@ -165,9 +188,9 @@ source "vmware-iso" "macOS_11_base" {
     "chmod +x /var/root/bootstrap.sh<enter>",
     "/var/root/bootstrap.sh<enter>"
   ]
-  cpus   = "6"
-  cores  = "6"
-  memory = "24576"
+  cpus   = var.cpu_count
+  cores  = var.cpu_count
+  memory = var.ram_gb * 1024
 }
 
 # Customize build
@@ -189,7 +212,7 @@ build {
   sources = ["sources.vmware-vmx.macOS_11_customize"]
 
   provisioner "file" {
-    sources     = ["install_bits/Xcode_12.2.xip", "install_bits/Command_Line_Tools_for_Xcode_12.2.dmg"]
+    sources     = [var.xcode, var.xcode_cli]
     destination = "~/"
   }
   provisioner "shell" {
@@ -197,11 +220,4 @@ build {
       "scripts/xcode.sh"
     ]
   }
-  #  provisioner "shell" {
-  #    expect_disconnect = true
-  #    scripts = [
-  #      "scripts/softwareupdate.sh",
-  #      "scripts/softwareupdate_complete.sh"
-  #    ]
-  #  }
 }
