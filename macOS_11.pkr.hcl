@@ -34,12 +34,12 @@ variable "ram_gb" {
 
 variable "xcode" {
   type    = string
-  default = "install_bits/Xcode_12.2.xip"
+  default = "install_bits/Xcode_12.3_beta.xip"
 }
 
 variable "xcode_cli" {
   type    = string
-  default = "install_bits/Command_Line_Tools_for_Xcode_12.2.dmg"
+  default = "install_bits/Command_Line_Tools_for_Xcode_12.3_beta.dmg"
 }
 
 variable "board_id" {
@@ -55,6 +55,16 @@ variable "hw_model" {
 variable "serial_number" {
   type    = string
   default = "M00000000001"
+}
+
+variable "seeding_program" {
+  type = string
+  default = "DeveloperSeed" # set to "none" to disable
+}
+
+variable "tools_url" {
+  type = string
+  default = "local"
 }
 
 # Full build 
@@ -158,6 +168,9 @@ build {
 
   provisioner "shell" {
     expect_disconnect = true
+    environment_vars = [
+      "TOOLS_URL=${var.tools_url}"
+    ]
     scripts = [
       "scripts/vmw_tools.sh"
     ]
@@ -244,8 +257,16 @@ build {
     sources     = [var.xcode, var.xcode_cli]
     destination = "~/"
   }
+
   provisioner "shell" {
+    expect_disconnect = true
+    start_retry_timeout = "2h"
+    environment_vars = [
+      "SEEDING_PROGRAM=${var.seeding}"
+    ] 
     scripts = [
+      "scripts/softwareupdate.sh",
+      "scripts/softwareupdate_complete.sh",
       "scripts/xcode.sh"
     ]
   }

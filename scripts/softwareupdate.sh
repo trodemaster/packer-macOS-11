@@ -3,14 +3,21 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-UPDATES_NEEDED=$(sudo softwareupdate -l 2>&1 >/dev/null)
-if [[ $UPDATES_NEEDED =~ "No updates are available" ]]; then
+# enable developer beta
+if [[ $SEEDING_PROGRAM != "none" ]]; then
+  sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil enroll $SEEDING_PROGRAM
+fi
+
+# check update state and save it to a log file to survive reboots
+sudo softwareupdate -l 2>&1 | sudo tee /var/log/packer_softwareupdate.log
+
+# check log file to see if updates are available and install them if so
+if (grep "No updates are available" /var/log/packer_softwareupdate.log); then
   echo "No software updates found"
 else
-  echo "Installing software updates and rebooting"
-  sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil enroll DeveloperSeed
+  echo "$(date +"%Y-%m-%d %T") packer installing software updates and rebooting" | sudo tee /var/log/install.log
   sudo softwareupdate -iaR
-  sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+#  sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
   sleep 30
 fi
 
