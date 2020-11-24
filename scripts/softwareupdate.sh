@@ -9,15 +9,14 @@ if [[ $SEEDING_PROGRAM != "none" ]]; then
 fi
 
 # check update state and save it to a log file to survive reboots
-sudo softwareupdate -l 2>&1 | sudo tee /var/log/packer_softwareupdate.log
+sudo softwareupdate -l 2>&1 | sudo tee ~/Library/Logs/packer_softwareupdate.log
 
 # check log file to see if updates are available and install them if so
-if (grep "No updates are available" /var/log/packer_softwareupdate.log); then
+if (grep "No new software available" ~/Library/Logs/packer_softwareupdate.log); then
   echo "No software updates found"
 else
   echo "$(date +"%Y-%m-%d %T") packer installing software updates and rebooting" | sudo tee /var/log/install.log
   sudo softwareupdate -iaR
-#  sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
   sleep 30
 fi
 

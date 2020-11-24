@@ -12,6 +12,7 @@ pkill Feedback || true
 # cleanup ssh enablement from install process
 sudo launchctl unload -w /Library/LaunchDaemons/ssh.plist
 sudo rm /Library/LaunchDaemons/ssh.plist
-sudo /usr/sbin/systemsetup -f -setremotelogin on 
+#sudo /usr/sbin/systemsetup -f -setremotelogin on 
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
 exit 0

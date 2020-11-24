@@ -4,12 +4,12 @@ packer {
 
 variable "iso_file_checksum" {
   type    = string
-  default = "file:install_bits/macOS_1101_installer.shasum"
+  default = "file:install_bits/macOS_1110_installer.shasum"
 }
 
 variable "iso_filename" {
   type    = string
-  default = "install_bits/macOS_1101_installer.iso"
+  default = "install_bits/macOS_1110_installer.iso"
 }
 
 variable "user_password" {
@@ -82,14 +82,21 @@ build {
     sources     = [var.xcode, var.xcode_cli, "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
     destination = "~/"
   }
+
   provisioner "shell" {
     expect_disconnect = true
+    start_retry_timeout = "2h"
+    environment_vars = [
+      "SEEDING_PROGRAM=${var.seeding_program}",
+      "TOOLS_URL=${var.tools_url}"
+    ] 
     scripts = [
       "scripts/vmw_tools.sh",
-      "scripts/xcode.sh"
+      "scripts/xcode.sh",
+      "scripts/softwareupdate.sh",
+      "scripts/softwareupdate_complete.sh"
     ]
   }
-
 }
 
 source "vmware-iso" "macOS_11" {
@@ -262,12 +269,12 @@ build {
     expect_disconnect = true
     start_retry_timeout = "2h"
     environment_vars = [
-      "SEEDING_PROGRAM=${var.seeding}"
+      "SEEDING_PROGRAM=${var.seeding_program}"
     ] 
     scripts = [
+      "scripts/xcode.sh",
       "scripts/softwareupdate.sh",
-      "scripts/softwareupdate_complete.sh",
-      "scripts/xcode.sh"
+      "scripts/softwareupdate_complete.sh"
     ]
   }
 }
