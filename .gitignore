@@ -9,3 +9,4 @@ crash.log
 .DS_Store
 output*
 content
+*.auto.pkrvars.hcl
