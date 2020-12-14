@@ -1,6 +1,10 @@
 # packer-macOS-11
 
-This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer hcl2 syntax wich curently has some known issues.  [HCL2: implementation list](https://github.com/hashicorp/packer/issues/9176) 
+This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer hcl2 syntax which currently has some known issues.  [HCL2: implementation list](https://github.com/hashicorp/packer/issues/9176) 
+
+## Discussion thread for usage questions
+Please see this tread for general usage questions.
+https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/
 
 ## Discussion thread for usage questions
 Please see this tread for general usage questions.
@@ -51,7 +55,7 @@ install_bits/
 ```
 
 ## Named builds
-This template has three named builds base, customize and full. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os install with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if you're not testing the customizations likely what you want to use. 
+This template has three named builds base, customize, and full. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os install with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if you're not testing the customizations likely what you want to use. 
 
 ### Building the full image 
 Builds the VM with all the options including Xcode
@@ -79,10 +83,12 @@ It's likely you will need to adjust the cpu and RAM requirements to match your a
     packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count=2 -var ram_gb=6 macOS_11.pkr.hcl
 
 ### Username & Password
-The build process created a packer user with UID 502. It's recommended to login with that account and create a new user with appropriate password when you start using the VM. 
+The build process created a packer user with UID 502. It's recommended to login with that account and create a new user with the appropriate password when you start using the VM. 
 
     Username: packer
     Password: packer
+
+Additionally the username is embeded in packages and scritps using durring the install process. Update scripts/setupsshlogin.sh, scripts/makepkgs.sh & packages/sesetupsshlogin.pkgproj
 
 If you want to override the username and password they can be specified on the cli
 
@@ -97,3 +103,10 @@ Variables have been added to customize board id, hardware model & serial number.
 If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the pvapplegpu.sh script with add the appropriate vmx entries to the specified vmx file. The VM needs to be powered off for this change.
 
     scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx
+
+### Big Sur host workaround
+As of Fusion 12.1 & packer, 1.6.5 ssh connections will fail unless a dhcp lease file is populated by an external process. This has to do with adoption of hypervisor.framwork on macOS 11. The below workaround is known to resolve this but will fail if multiple VMs are running. 
+
+    (sleep 120 && scripts/fakelease.sh)& packer build -force -only full.vmware-iso.macOS_11 macOS_11.pkr.hcl
+
+A fix for packer 1.6.6 has been submitted and known to resolve this issue as well.

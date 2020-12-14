@@ -1,10 +1,13 @@
-# wait for the installer to wrap up
-if pgrep Installer; then
-  while pgrep Installer; do
-    echo "Waiting for Installer to finish"
-    softwareupdate --dump-state --all
-    sleep 30
-  done
-  sudo touch /private/var/db/.AppleSetupDone
-  sudo reboot
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+shopt -s nullglob nocaseglob
+
+# wait for the update process to complete
+if (grep "Action.*restart" ~/Library/Logs/packer_softwareupdate.log); then
+  tail -f /var/log/install.log | sed '/.*Setup Assistant.*ISAP.*Done.*/ q' | grep ISAP || true
+  sleep 180
 fi
+
+echo "Software update completed"
+exit 0

@@ -4,12 +4,12 @@ packer {
 
 variable "iso_file_checksum" {
   type    = string
-  default = "file:install_bits/macOS_1101_installer.shasum"
+  default = "file:install_bits/macOS_1110_installer.shasum"
 }
 
 variable "iso_filename" {
   type    = string
-  default = "install_bits/macOS_1101_installer.iso"
+  default = "install_bits/macOS_1110_installer.iso"
 }
 
 variable "user_password" {
@@ -34,12 +34,12 @@ variable "ram_gb" {
 
 variable "xcode" {
   type    = string
-  default = "install_bits/Xcode_12.2.xip"
+  default = "install_bits/Xcode_12.3.xip"
 }
 
 variable "xcode_cli" {
   type    = string
-  default = "install_bits/Command_Line_Tools_for_Xcode_12.2.dmg"
+  default = "install_bits/Command_Line_Tools_for_Xcode_12.3.dmg"
 }
 
 variable "board_id" {
@@ -57,6 +57,16 @@ variable "serial_number" {
   default = "M00000000001"
 }
 
+variable "seeding_program" {
+  type = string
+  default = "DeveloperSeed" # set to "none" to disable
+}
+
+variable "tools_url" {
+  type = string
+  default = "local"
+}
+
 # Full build 
 build {
   name    = "full"
@@ -72,14 +82,21 @@ build {
     sources     = [var.xcode, var.xcode_cli, "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
     destination = "~/"
   }
+
   provisioner "shell" {
     expect_disconnect = true
+    start_retry_timeout = "2h"
+    environment_vars = [
+      "SEEDING_PROGRAM=${var.seeding_program}",
+      "TOOLS_URL=${var.tools_url}"
+    ] 
     scripts = [
       "scripts/vmw_tools.sh",
-      "scripts/xcode.sh"
+      "scripts/xcode.sh",
+      "scripts/softwareupdate.sh",
+      "scripts/softwareupdate_complete.sh"
     ]
   }
-
 }
 
 source "vmware-iso" "macOS_11" {
@@ -158,6 +175,9 @@ build {
 
   provisioner "shell" {
     expect_disconnect = true
+    environment_vars = [
+      "TOOLS_URL=${var.tools_url}"
+    ]
     scripts = [
       "scripts/vmw_tools.sh"
     ]
@@ -244,9 +264,17 @@ build {
     sources     = [var.xcode, var.xcode_cli]
     destination = "~/"
   }
+
   provisioner "shell" {
+    expect_disconnect = true
+    start_retry_timeout = "2h"
+    environment_vars = [
+      "SEEDING_PROGRAM=${var.seeding_program}"
+    ] 
     scripts = [
-      "scripts/xcode.sh"
+      "scripts/xcode.sh",
+      "scripts/softwareupdate.sh",
+      "scripts/softwareupdate_complete.sh"
     ]
   }
 }
