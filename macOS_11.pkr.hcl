@@ -57,9 +57,10 @@ variable "serial_number" {
   default = "M00000000001"
 }
 
+# Set this to DeveloperSeed if you want prerelease software updates
 variable "seeding_program" {
   type = string
-  default = "DeveloperSeed" # set to "none" to disable
+  default = "none" 
 }
 
 variable "tools_url" {
