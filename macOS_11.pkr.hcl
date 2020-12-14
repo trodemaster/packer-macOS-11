@@ -34,12 +34,12 @@ variable "ram_gb" {
 
 variable "xcode" {
   type    = string
-  default = "install_bits/Xcode_12.3_beta.xip"
+  default = "install_bits/Xcode_12.3.xip"
 }
 
 variable "xcode_cli" {
   type    = string
-  default = "install_bits/Command_Line_Tools_for_Xcode_12.3_beta.dmg"
+  default = "install_bits/Command_Line_Tools_for_Xcode_12.3.dmg"
 }
 
 variable "board_id" {

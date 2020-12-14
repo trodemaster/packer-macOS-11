@@ -99,3 +99,10 @@ Variables have been added to customize board id, hardware model & serial number.
 If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the pvapplegpu.sh script with add the appropriate vmx entries to the specified vmx file. The VM needs to be powered off for this change.
 
     scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx
+
+### Big Sur host workaround
+As of Fusion 12.1 & packer, 1.6.5 ssh connections will fail unless a dhcp lease file is populated by an external process. This has to do with adoption of hypervisor.framwork on macOS 11. The below workaround is known to resolve this but will fail if multiple VMs are running. 
+
+    (sleep 120 && scripts/fakelease.sh)& packer build -force -only full.vmware-iso.macOS_11 macOS_11.pkr.hcl
+
+A fix for packer 1.6.6 has been submitted and known to resolve this issue as well.
