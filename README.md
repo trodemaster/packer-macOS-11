@@ -6,10 +6,6 @@ This a packer template for macOS 11 built on VMware fusion 12. It's created usin
 Please see this tread for general usage questions.
 https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/
 
-## Discussion thread for usage questions
-Please see this tread for general usage questions.
-https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/
-
 ## What's working
 * [scripts/buildprerequs.sh](buildprerequs.sh) creates a macOS installer .iso
 * Using voiceover and boot commands to open terminal.app !!
@@ -38,24 +34,25 @@ After cloning this repo you must pull down the submodules by running the followi
 ## Prerequisite installer bits
 I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
 
-Thanks to all contributors of the following project that are imported as submodlues!\
-[create_macos_vm_install_dmg](https://github.com/rtrouton/create_macos_vm_install_dmg)\
-[macadmin-scripts](https://github.com/munki/macadmin-scripts)
+Thanks to all contributors of the following project that are imported as submodules:
 
-With the customize build I'm installing Xcode beta. Grab both the latest Xcode .xip and matching command line tools installer dmg from developer.apple.com. Toss them into the install_bits directory. 
+* [create_macos_vm_install_dmg](https://github.com/rtrouton/create_macos_vm_install_dmg)
+* [macadmin-scripts](https://github.com/munki/macadmin-scripts)
 
-Here is what your install_bits directory should look like to successfully build the full image. 
+With the customize build I'm installing Xcode 12.3. Grab both the latest Xcode .xip and matching command line tools installer dmg from [developer.apple.com](https://developer.apple.com). Toss them into the `install_bits` directory. 
+
+Here is what your `install_bits` directory should look like to successfully build the full image:
 ```
 install_bits/
-├── Command_Line_Tools_for_Xcode_12.2.dmg
-├── Xcode_12.2.xip
+├── Command_Line_Tools_for_Xcode_12.3.dmg
+├── Xcode_12.3.xip
 ├── dmg
 ├── macOS_1100_installer.iso
 └── macOS_1100_installer.shasum
 ```
 
 ## Named builds
-This template has three named builds base, customize, and full. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The base build does the os install with the vmware-iso builder and customize takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The full build does all the steps at once and if you're not testing the customizations likely what you want to use. 
+This template has three named builds `base`, `customize`, and `full`. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The `base` build does the os install with the vmware-iso builder and `customize` takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The `full` build does all the steps at once and if you're not testing the customizations likely what you want to use. 
 
 ### Building the full image 
 Builds the VM with all the options including Xcode
