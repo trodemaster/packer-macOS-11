@@ -1,5 +1,5 @@
 packer {
-  required_version = ">= 1.6.5"
+  required_version = ">= 1.6.6"
 }
 
 variable "iso_file_checksum" {
@@ -59,13 +59,28 @@ variable "serial_number" {
 
 # Set this to DeveloperSeed if you want prerelease software updates
 variable "seeding_program" {
-  type = string
-  default = "none" 
+  type    = string
+  default = "none"
 }
 
 variable "tools_url" {
-  type = string
+  type    = string
   default = "local"
+}
+
+variable "boot_key_interval_iso" {
+  type    = string
+  default = "150ms"
+}
+
+variable "boot_wait_iso" {
+  type    = string
+  default = "300s"
+}
+
+variable "boot_keygroup_interval_iso" {
+  type    = string
+  default = "4s"
 }
 
 # Full build 
@@ -85,12 +100,12 @@ build {
   }
 
   provisioner "shell" {
-    expect_disconnect = true
+    expect_disconnect   = true
     start_retry_timeout = "2h"
     environment_vars = [
       "SEEDING_PROGRAM=${var.seeding_program}",
       "TOOLS_URL=${var.tools_url}"
-    ] 
+    ]
     scripts = [
       "scripts/vmw_tools.sh",
       "scripts/xcode.sh",
@@ -117,11 +132,10 @@ source "vmware-iso" "macOS_11" {
   http_directory       = "http"
   network_adapter_type = "e1000e"
   disk_type_id         = "0"
-  boot_wait            = "180s"
   ssh_timeout          = "12h"
   usb                  = "true"
   version              = "18"
-    vmx_data = {
+  vmx_data = {
     "tools.upgrade.policy"         = "manual",
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
@@ -135,8 +149,9 @@ source "vmware-iso" "macOS_11" {
     "serialNumber.reflectHost"     = "FALSE",
     "SMBIOS.use12CharSerialNumber" = "TRUE"
   }
-  boot_key_interval      = "20ms"
-  boot_keygroup_interval = "2s"
+  boot_wait              = var.boot_wait_iso
+  boot_key_interval      = var.boot_key_interval_iso
+  boot_keygroup_interval = var.boot_keygroup_interval_iso
   boot_command = [
     "<enter><wait10s>",
     "<leftSuperon><f5><leftSuperoff>",
@@ -202,11 +217,10 @@ source "vmware-iso" "macOS_11_base" {
   http_directory       = "http"
   network_adapter_type = "e1000e"
   disk_type_id         = "0"
-  boot_wait            = "180s"
   ssh_timeout          = "12h"
   usb                  = "true"
   version              = "18"
-    vmx_data = {
+  vmx_data = {
     "tools.upgrade.policy"         = "manual",
     "smc.present"                  = "TRUE",
     "smbios.restrictSerialCharset" = "TRUE",
@@ -220,8 +234,9 @@ source "vmware-iso" "macOS_11_base" {
     "serialNumber.reflectHost"     = "FALSE",
     "SMBIOS.use12CharSerialNumber" = "TRUE"
   }
-  boot_key_interval      = "20ms"
-  boot_keygroup_interval = "2s"
+  boot_wait              = var.boot_wait_iso
+  boot_key_interval      = var.boot_key_interval_iso
+  boot_keygroup_interval = var.boot_keygroup_interval_iso
   boot_command = [
     "<enter><wait10s>",
     "<leftSuperon><f5><leftSuperoff>",
@@ -267,11 +282,11 @@ build {
   }
 
   provisioner "shell" {
-    expect_disconnect = true
+    expect_disconnect   = true
     start_retry_timeout = "2h"
     environment_vars = [
       "SEEDING_PROGRAM=${var.seeding_program}"
-    ] 
+    ]
     scripts = [
       "scripts/xcode.sh",
       "scripts/softwareupdate.sh",
