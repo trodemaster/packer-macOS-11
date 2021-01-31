@@ -7,7 +7,7 @@ Please see this tread for general usage questions.
 https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/
 
 ## What's working
-* [scripts/buildprerequs.sh](buildprerequs.sh) creates a macOS installer .iso
+* [scripts/buildprerequs.sh](scripts/buildprerequs.sh) creates a macOS installer .iso
 * Using voiceover and boot commands to open terminal.app !!
 * Downloading .pkg and script payloads to the recover environment 
 * Running the payload scripts that handle the install process
@@ -32,7 +32,7 @@ After cloning this repo you must pull down the submodules by running the followi
     git submodule update --init
 
 ## Prerequisite installer bits
-I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
+I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](scripts/buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
 
 Thanks to all contributors of the following project that are imported as submodules:
 
