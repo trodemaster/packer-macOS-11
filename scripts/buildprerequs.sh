@@ -12,7 +12,7 @@ sudo rm submodules/macadmin-scripts/*.iso > /dev/null 2>&1 || true
 # build the installer dmg
 cd submodules/macadmin-scripts/
 echo "Start OS installer download."
-sudo ./installinstallmacos.py --seedprogram DeveloperSeed #--ignore-cache
+sudo ./installinstallmacos.py --seedprogram DeveloperSeed --ignore-cache
 cd ../../
 
 # mount the installer dmg
