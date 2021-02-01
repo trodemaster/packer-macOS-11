@@ -12,7 +12,7 @@ sudo rm submodules/macadmin-scripts/*.iso > /dev/null 2>&1 || true
 # build the installer dmg
 cd submodules/macadmin-scripts/
 echo "Start OS installer download."
-sudo ./installinstallmacos.py --seedprogram DeveloperSeed --ignore-cache
+sudo ./installinstallmacos.py --seedprogram DeveloperSeed #--ignore-cache
 cd ../../
 
 # mount the installer dmg
@@ -30,7 +30,7 @@ hdiutil detach install_bits/dmg -force
 sudo rm install_bits/macOS_*_installer.dmg
 
 # get iso name
-ISO_NAME=$(basename install_bits/macOS_*_installer.iso)
+ISO_NAME=$(basename $(ls -Art install_bits/macOS_*_installer.iso | tail -n 1))
 FILE_NAME=$(cut -f 1 -d .<<<$ISO_NAME)
 
 # output shasum
