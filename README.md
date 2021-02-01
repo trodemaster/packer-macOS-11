@@ -109,6 +109,7 @@ Apple has been seeding pre-release builds as software update only more often. To
     packer build -force -only=full.vmware-iso.macOS_11 -var seeding_program="DeveloperSeed" macOS_11.pkr.hcl
 
 ### Apple GPU support on Big Sur hosts
-If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the pvapplegpu.sh script with add the appropriate vmx entries to the specified vmx file. The VM needs to be powered off for this change. 
-
-    scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx
+If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. Running the [scripts/pvapplegpu.sh](scripts/pvapplegpu.sh) script with add the appropriate vmx entries to the specified vmx file. The VM needs to be powered off for this change. 
+```
+scripts/pvapplegpu.sh output/macOS_11/macOS_11.vmx
+```
