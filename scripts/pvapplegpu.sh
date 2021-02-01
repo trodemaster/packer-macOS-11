@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
 # confirm the vmx file provided exists
-if [[ -e $1 ]]; then
+if [[ -e "$1" ]]; then
   echo "Updating $1"
 else
   echo "The target vmx file $1 doesn't exist"
 fi
 
-VMX_FILE=$(sed 's/ /\\ /g' <<<$1)
-echo $VMX_FILE
-
+#VMX_FILE=$(sed 's/ /\\ /g' <<<"$1")
+#echo $VMX_FILE
+VMX_FILE=$1
 # svga.present
-if (grep -q svga.present $VMX_FILE); then
+if (grep -q svga.present "$VMX_FILE"); then
   /usr/bin/sed -i '' 's/svga.present.*/svga.present="FALSE"/g' "$VMX_FILE"
 else
   echo 'svga.present="FALSE"' >>"$VMX_FILE"
