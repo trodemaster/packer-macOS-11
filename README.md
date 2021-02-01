@@ -5,6 +5,8 @@ This a packer template for macOS 11 built on VMware fusion 12. It's created usin
 ## Discussion thread for usage questions
 Please see this hashicorp discuss thread for general usage questions & answers.
 
+--> [**building-macos-11-x-vms-with-packer-and-fusion**](https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/) <--
+
 ## Key capabilities
 * [scripts/buildprerequs.sh](scripts/buildprerequs.sh) creates a macOS installer .iso
 * Using voiceover and boot commands to open terminal.app !!
