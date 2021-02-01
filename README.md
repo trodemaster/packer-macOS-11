@@ -72,12 +72,12 @@ Useful for testing customizations without waiting for the whole OS to install.
     packer build -force -only=customize.vmware-vmx.macOS_11_customize macOS_11.pkr.hcl
 
 ### Input variables
-This template uses input variables for a few customizable values. Run packer inspect to see the defaults and what can be changed. See the docs for more options like creating a local variables file for customization https://www.packer.io/docs/from-1.5/variables .
+This template uses input variables for a bunch of customizable values. Run packer inspect to see the defaults and what can be changed. See the docs for more options like creating a local variables file for customization https://www.packer.io/docs/from-1.5/variables . Creating a per machine variable file is also a good way to customize settings without editing the template or adding them to the command line.
 
     packer inspect macOS_11.pkr.hcl
 
 ## Adjust resources
-It's likely you will need to adjust the cpu and RAM requirements to match your available resources. The variables can be edited in the template directly or passed on the cli. 
+If you need to adjust the cpu and RAM requirements to match your available resources. The variables can be edited in the template directly or passed on the cli. 
 
     packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count="2" -var ram_gb="6" macOS_11.pkr.hcl
 
