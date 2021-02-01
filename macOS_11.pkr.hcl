@@ -4,12 +4,12 @@ packer {
 
 variable "iso_file_checksum" {
   type    = string
-  default = "file:install_bits/macOS_1110_installer.shasum"
+  default = "file:install_bits/macOS_1120_installer.shasum"
 }
 
 variable "iso_filename" {
   type    = string
-  default = "install_bits/macOS_1110_installer.iso"
+  default = "install_bits/macOS_1120_installer.iso"
 }
 
 variable "user_password" {
@@ -24,22 +24,22 @@ variable "user_username" {
 
 variable "cpu_count" {
   type    = number
-  default = "6"
+  default = "2"
 }
 
 variable "ram_gb" {
   type    = number
-  default = "24"
+  default = "6"
 }
 
 variable "xcode" {
   type    = string
-  default = "install_bits/Xcode_12.3.xip"
+  default = "install_bits/Xcode_12.4.xip"
 }
 
 variable "xcode_cli" {
   type    = string
-  default = "install_bits/Command_Line_Tools_for_Xcode_12.3.dmg"
+  default = "install_bits/Command_Line_Tools_for_Xcode_12.4.dmg"
 }
 
 variable "board_id" {

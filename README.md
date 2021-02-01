@@ -7,10 +7,10 @@ Please see this hashicorp discuss thread for general usage questions & answers.
 
 --> [**building-macos-11-x-vms-with-packer-and-fusion**](https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/) <--
 
-## What's working
+## Key capabilities
 * [scripts/buildprerequs.sh](buildprerequs.sh) creates a macOS installer .iso
 * Using voiceover and boot commands to open terminal.app !!
-* Downloading .pkg and script payloads to the recover environment 
+* Downloading .pkg and script payloads to the recovery environment 
 * Running the payload scripts that handle the install process
 * packer user creation and autologin
 * Clearing setup screens
@@ -40,13 +40,13 @@ Thanks to all contributors of the following project that are imported as submodu
 * [create_macos_vm_install_dmg](https://github.com/rtrouton/create_macos_vm_install_dmg)
 * [macadmin-scripts](https://github.com/grahampugh/macadmin-scripts)
 
-With the customize build I'm installing Xcode 12.3. Grab both the latest Xcode .xip and matching command line tools installer dmg from [developer.apple.com](https://developer.apple.com). Toss them into the `install_bits` directory. 
+With the customize build I'm installing Xcode 12.4. Grab both the latest Xcode .xip and matching command line tools installer dmg from [developer.apple.com](https://developer.apple.com). Toss them into the `install_bits` directory. 
 
 Here is what your `install_bits` directory should look like to successfully build the full image:
 ```
 install_bits/
-├── Command_Line_Tools_for_Xcode_12.3.dmg
-├── Xcode_12.3.xip
+├── Command_Line_Tools_for_Xcode_12.4.dmg
+├── Xcode_12.4.xip
 ├── dmg
 ├── macOS_1120_installer.iso
 └── macOS_1120_installer.shasum
