@@ -1,6 +1,6 @@
 # packer-macOS-11
 
-This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer packer hcl2 syntax which is relativly new. 
+This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer packer hcl2 syntax which is relatively new. 
 
 ## Discussion thread for usage questions
 Please see this hashicorp discuss thread for general usage questions & answers.
@@ -54,7 +54,7 @@ install_bits/
 NOTE: Filenames will change as newer versions are released
 
 ## Named builds
-This template has three named builds `base`, `customize`, and `full`. The idea here is splitting the lengthy process of macOS installation (baking the image) from the customization (frying the image). The `base` build does the os install with the vmware-iso builder and `customize` takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The `full` build does all the steps at once and if you're not testing the customizations likely what you want to use. 
+This template has three named builds `base`, `customize`, and `full`. The idea here is to split the lengthy process of macOS installation (baking the image) from the customization (frying the image). The `base` build does the os install with the vmware-iso builder and `customize` takes the output VM from that and customizes it. Re-running the customization quickly gets allows for quicker testing of that phase. The `full` build does all the steps at once and if you're not testing the customizations likely what you want to use. 
 
 ### Building the full image 
 Builds the VM with all the options including Xcode
@@ -82,7 +82,7 @@ If you need to adjust the cpu and RAM requirements to match your available resou
     packer build -force -only=full.vmware-iso.macOS_11 -var cpu_count="2" -var ram_gb="6" macOS_11.pkr.hcl
 
 ## Adjust timing
-The process for starting the installer is very dependant on timing unfortunately. If you run into unexpected results when the installer is starting up you may need to adjust the timeing to match your system. Each release of the OS and specific hardware running the build can change the optimal timing. When in doubt add some time to these values to see if that fixes the issue. 
+The process for starting the installer is very dependant on timing, unfortunately. If you run into unexpected results when the installer is starting up you may need to adjust the timing to match your system. Each release of the OS and specific hardware running the build can change the optimal timing. When in doubt add some time to these values to see if that fixes the issue. 
 
     packer build -force -only=full.vmware-iso.macOS_11 -var boot_key_interval_iso="400ms" -var boot_wait_iso="400s" -var boot_keygroup_interval_iso="5s" macOS_11.pkr.hcl
 
