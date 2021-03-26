@@ -3,6 +3,9 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
+# boot in verbose mode to debug
+# sudo nvram boot-args="-v"
+
 # enable developer beta
 if [[ $SEEDING_PROGRAM != "none" ]]; then
   sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil enroll $SEEDING_PROGRAM

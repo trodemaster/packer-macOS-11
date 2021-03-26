@@ -63,9 +63,9 @@ variable "seeding_program" {
   default = "none"
 }
 
-variable "tools_url" {
+variable "tools_path" {
   type    = string
-  default = "local"
+  default = "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"
 }
 
 variable "boot_key_interval_iso" {
@@ -95,7 +95,7 @@ build {
   }
 
   provisioner "file" {
-    sources     = [var.xcode, var.xcode_cli, "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"]
+    sources     = [var.xcode, var.xcode_cli, var.tools_path]
     destination = "~/"
   }
 
@@ -103,8 +103,7 @@ build {
     expect_disconnect   = true
     start_retry_timeout = "2h"
     environment_vars = [
-      "SEEDING_PROGRAM=${var.seeding_program}",
-      "TOOLS_URL=${var.tools_url}"
+      "SEEDING_PROGRAM=${var.seeding_program}"
     ]
     scripts = [
       "scripts/vmw_tools.sh",
@@ -113,6 +112,11 @@ build {
       "scripts/softwareupdate_complete.sh"
     ]
   }
+
+  post-processor "shell-local" {
+    inline = ["scripts/vmx_cleanup.sh output/macOS_11/macOS_11.vmx"]
+  }
+
 }
 
 source "vmware-iso" "macOS_11" {
@@ -185,15 +189,12 @@ build {
   }
 
   provisioner "file" {
-    source      = "/Applications/VMware Fusion.app/Contents/Library/isoimages/darwin.iso"
+    source      = var.tools_path
     destination = "~/darwin.iso"
   }
 
   provisioner "shell" {
     expect_disconnect = true
-    environment_vars = [
-      "TOOLS_URL=${var.tools_url}"
-    ]
     scripts = [
       "scripts/vmw_tools.sh"
     ]
@@ -292,5 +293,9 @@ build {
       "scripts/softwareupdate.sh",
       "scripts/softwareupdate_complete.sh"
     ]
+  }
+
+  post-processor "shell-local" {
+    inline = [ "scripts/vmx_cleanup.sh output/macOS_11_customize/macOS_11_customize.vmx" ]
   }
 }
