@@ -14,7 +14,7 @@ retrycount=0
 retrylimit=5
 until [ "$retrycount" -ge "$retrylimit" ]
 do
-  /Volumes/macOS\ Base\ System/Install*.app/Contents/Resources/startosinstall --agreetolicense --rebootdelay 90 --installpackage packer.pkg --volume /Volumes/11vm && break #  --installpackage setupsshlogin.pkg
+  /Volumes/macOS\ Base\ System/Install*.app/Contents/Resources/startosinstall --agreetolicense --rebootdelay 90 --installpackage packer.pkg --installpackage setupsshlogin.pkg --volume /Volumes/11vm && break
    retrycount=$((retrycount+1)) 
    echo "startosinstall failed. retrying in 20sec"
    sleep 20
