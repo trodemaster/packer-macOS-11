@@ -168,6 +168,7 @@ source "vmware-iso" "macOS_11" {
     "<enter>",
     "curl -o /var/root/packer.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/packer.pkg<enter>",
     "curl -o /var/root/setupsshlogin.pkg http://{{ .HTTPIP }}:{{ .HTTPPort }}/setupsshlogin.pkg<enter>",
+    "curl -o /var/root/bootstrap.sh http://{{ .HTTPIP }}:{{ .HTTPPort }}/bootstrap.sh<enter>",
     "chmod +x /var/root/bootstrap.sh<enter>",
     "/var/root/bootstrap.sh<enter>"
   ]
