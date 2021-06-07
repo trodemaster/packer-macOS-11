@@ -95,7 +95,8 @@ build {
   }
 
   provisioner "file" {
-    sources     = [var.xcode, var.xcode_cli, var.tools_path]
+    #    sources     = [var.xcode, var.xcode_cli, var.tools_path]
+    sources     = [var.xcode_cli, var.tools_path]
     destination = "~/"
   }
 
@@ -271,6 +272,12 @@ source "vmware-vmx" "macOS_11_customize" {
   source_path      = "output/macOS_11_base/macOS_11_base.vmx"
   shutdown_command = "sudo shutdown -h now"
   output_directory = "output/{{build_name}}"
+  vmx_data = {
+    "nvram" = "../../scripts/disablesip.nvram"
+  }
+#  vmx_data_post = {
+#    "nvram" = "{{build_name}}.nvram"
+#  }
 }
 
 build {
@@ -278,8 +285,17 @@ build {
   sources = ["sources.vmware-vmx.macOS_11_customize"]
 
   provisioner "file" {
-    sources     = [var.xcode, var.xcode_cli]
+    #    sources     = [var.xcode, var.xcode_cli]
+    sources     = [var.xcode_cli]
     destination = "~/"
+  }
+
+  provisioner "shell" {
+    inline = ["csrutil status"]
+  }
+
+  provisioner "shell" {
+    script = "scripts/os_configure.sh"
   }
 
   provisioner "shell" {
@@ -296,6 +312,6 @@ build {
   }
 
   post-processor "shell-local" {
-    inline = [ "scripts/vmx_cleanup.sh output/macOS_11_customize/macOS_11_customize.vmx" ]
+    inline = ["scripts/vmx_cleanup.sh output/macOS_11_customize/macOS_11_customize.vmx"]
   }
 }
