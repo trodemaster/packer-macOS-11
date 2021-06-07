@@ -134,7 +134,7 @@ source "vmware-iso" "macOS_11" {
   disk_size            = "100000"
   disk_adapter_type    = "nvme"
   http_directory       = "http"
-  network_adapter_type = "e1000e"
+  network_adapter_type = "vmxnet3"
   disk_type_id         = "0"
   ssh_timeout          = "12h"
   usb                  = "true"
