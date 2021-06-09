@@ -7,7 +7,11 @@ shopt -s nullglob nocaseglob
 # sudo nvram boot-args="-v"
 
 # enable developer beta
-if [[ $SEEDING_PROGRAM != "none" ]]; then
+if [[ $SEEDING_PROGRAM = "none" ]]; then
+  echo "Unenroll from seeding"
+  sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil unenroll
+else
+  echo "Enrolling to $SEEDING_PROGRAM"
   sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil enroll $SEEDING_PROGRAM
 fi
 

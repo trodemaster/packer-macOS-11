@@ -95,7 +95,7 @@ build {
   }
 
   provisioner "file" {
-    sources     = [var.xcode, var.xcode_cli, var.tools_path]
+    sources     = [var.xcode_cli, var.tools_path]
     destination = "~/"
   }
 
@@ -278,7 +278,7 @@ build {
   sources = ["sources.vmware-vmx.macOS_11_customize"]
 
   provisioner "file" {
-    sources     = [var.xcode, var.xcode_cli]
+    sources     = [var.xcode_cli, var.tools_path]
     destination = "~/"
   }
 
@@ -296,6 +296,6 @@ build {
   }
 
   post-processor "shell-local" {
-    inline = [ "scripts/vmx_cleanup.sh output/macOS_11_customize/macOS_11_customize.vmx" ]
+    inline = ["scripts/vmx_cleanup.sh output/macOS_11_customize/macOS_11_customize.vmx"]
   }
 }
