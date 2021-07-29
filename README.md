@@ -1,9 +1,9 @@
 # packer-macOS-11
 
-This a packer template for macOS 11 built on VMware fusion 12. It's created using the newer packer hcl2 syntax which is relatively new. 
+This a packer template for macOS 11 or 12 built on VMware fusion 12. It's created using the newer packer hcl2 syntax. 
 
 ## Discussion thread for usage questions
-Please see this hashicorp discuss thread for general usage questions & answers.
+See this hashicorp discuss thread for general usage questions & answers.
 
 --> [**building-macos-11-x-vms-with-packer-and-fusion**](https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/) <--
 
@@ -15,15 +15,14 @@ Please see this hashicorp discuss thread for general usage questions & answers.
 * packer user creation and autologin
 * Clearing setup screens
 * Enable remotelogin system settings
-* Install Xcode & cli tools
+* Install Command Line Developer tools
 
 ## What's missing
-I'll give the community a few months to sort out any reasonable options for these. Not interested in creating a full MDM workflow here.
+Apple has removed the capability to automate the approval of system extensions via scripting tools. 
 * Get rid of feedback assistant popup for beta releases
 * Approve VMware tools system extension and helper tool
-* Profile to adjust a bunch of settings
 
-## Building macOS 11 with this packer template
+## Building macOS 11+ with this packer template
 * Minimum packer version is 1.6.6
 * VMware Fusion 12.0 or greater
 
@@ -109,7 +108,7 @@ Apple has been seeding pre-release builds as software update only more often. To
     packer build -force -only=full.vmware-iso.macOS_11 -var seeding_program="DeveloperSeed" macOS_11.pkr.hcl
 
 ### Apple GPU support on Big Sur hosts
-If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. This version of the template uses a post-processor to add the needed vmx config if the host OS is macOS 11.x . 
+If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. This version of the template uses a post-processor to add the needed vmx config if the host OS is macOS 11.x+. 
 
 ### Use downloaded version of VMware tools .iso
 Sometimes newer versions of VMware tools are available from vmware.com . Check https://my.vmware.com/en/web/vmware/downloads/info/slug/datacenter_cloud_infrastructure/vmware_tools/11_x . If you want to use an iso besides the one included with VMware fusion then update the variable tools_path 

@@ -10,3 +10,4 @@ crash.log
 output*
 content
 *.auto.pkrvars.hcl
+*.pkrvars.hcl 

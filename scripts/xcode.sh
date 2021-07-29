@@ -12,7 +12,7 @@ shopt -s nullglob nocaseglob
 echo "mount cli tools"
 hdiutil attach -quiet -noverify -mountpoint "/Volumes/Command Line Developer Tools/" ~/Command_Line_Tools_*.dmg 
 
-echo "instal the cli tools"
+echo "install the cli tools"
 sudo installer -pkg "/Volumes/Command Line Developer Tools/Command Line Tools.pkg" -target / || true
 
 #echo "xattar remove quarantine attributes"
