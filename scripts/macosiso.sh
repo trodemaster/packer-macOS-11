@@ -11,10 +11,16 @@ if [[ $HOST_SYSTEM_SEED_STATE == "(null)" ]]; then
 fi
 
 # cleanup existing installer
-rm -r /Applications/Install\ macOS*.app
+sudo /bin/rm -r /Applications/Install\ macOS*.app
+
+# list installer versions
+softwareupdate --list-full-installer
+
+# select version
+read -p "OS version?" OS_VERS
 
 # download installer
-softwareupdate --fetch-full-installer --full-installer-version 12.0
+softwareupdate --fetch-full-installer --full-installer-version "OS_VERS"
 
 # disable developer seeds
 if [[ $HOST_SYSTEM_SEED_STATE != $(sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil current | sed -n 's/^Currently enrolled in: //p') ]]; then
@@ -22,6 +28,8 @@ if [[ $HOST_SYSTEM_SEED_STATE != $(sudo /System/Library/PrivateFrameworks/Seedin
     sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil unenroll
   fi
 fi
+
+exit 0
 
 # make install disk image
 INSTALL_APP=$(ls -d /System/Volumes/Data/Applications/Install\ macOS*.app)

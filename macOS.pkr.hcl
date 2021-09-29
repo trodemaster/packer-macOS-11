@@ -88,6 +88,11 @@ variable "macos_version" {
   default = "12.0"
 }
 
+variable "bootstrapper_script" {
+  type    = list(string)
+  default = ["sw_vers"]
+}
+
 # source from iso
 source "vmware-iso" "macOS" {
   display_name         = "{{build_name}} ${var.macos_version} base"
@@ -238,6 +243,12 @@ build {
       "scripts/softwareupdate.sh",
       "scripts/softwareupdate_complete.sh"
     ]
+  }
+
+  # optionally call external bootstrap script set by var.bootstrapper_script
+  provisioner "shell" {
+    expect_disconnect = true
+    inline            = var.bootstrapper_script
   }
 
   post-processor "shell-local" {
