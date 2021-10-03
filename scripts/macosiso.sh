@@ -11,7 +11,9 @@ if [[ $HOST_SYSTEM_SEED_STATE == "(null)" ]]; then
 fi
 
 # cleanup existing installer
-sudo /bin/rm -r /Applications/Install\ macOS*.app
+#if ls /Applications/Install\ macOS*.app >/dev/null 2>&1; then
+#  sudo /bin/rm -r /Applications/Install\ macOS*.app
+#fi
 
 # list installer versions
 softwareupdate --list-full-installer
@@ -20,7 +22,7 @@ softwareupdate --list-full-installer
 read -p "OS version?" OS_VERS
 
 # download installer
-softwareupdate --fetch-full-installer --full-installer-version "OS_VERS"
+softwareupdate --fetch-full-installer --full-installer-version "$OS_VERS"
 
 # disable developer seeds
 if [[ $HOST_SYSTEM_SEED_STATE != $(sudo /System/Library/PrivateFrameworks/Seeding.framework/Versions/A/Resources/seedutil current | sed -n 's/^Currently enrolled in: //p') ]]; then
@@ -35,19 +37,18 @@ exit 0
 INSTALL_APP=$(ls -d /System/Volumes/Data/Applications/Install\ macOS*.app)
 echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh "$INSTALL_APP" install_bits/ #|| true
 
-
 # ugly try to unmount any existing installer volumes
 hdiutil detach install_bits/dmg -force
 
-# cleanup dmg of installer 
+# cleanup dmg of installer
 sudo rm install_bits/macOS_*_installer.dmg
 
 # get iso name
 ISO_NAME=$(basename $(ls -Art install_bits/macOS_*_installer.iso | tail -n 1))
-FILE_NAME=$(cut -f 1 -d .<<<$ISO_NAME)
+FILE_NAME=$(cut -f 1 -d . <<<$ISO_NAME)
 
 # output shasum
 echo "Updating the shasum file"
-shasum -a 256 install_bits/$ISO_NAME > install_bits/$FILE_NAME.shasum
+shasum -a 256 install_bits/$ISO_NAME >install_bits/$FILE_NAME.shasum
 
 exit 0
