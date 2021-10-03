@@ -184,9 +184,9 @@ source "vmware-vmx" "macOS" {
   vmx_data = {
     "nvram" = "../../scripts/disablesip.nvram"
   }
-  #  vmx_data_post = {
-  #    "nvram" = "{{build_name}}_${var.macos_version}.nvram"
-  #  }
+  vmx_data_post = {
+    "nvram" = "{{build_name}}_${var.macos_version}.nvram"
+  }
 }
 
 # Base build

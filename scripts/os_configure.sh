@@ -14,28 +14,35 @@ fi
 /usr/bin/sudo mv ~/cliclick/cliclick /usr/local/bin/cliclick
 /bin/rm -r ~/cliclick*
 
-# List kernel extensions
-#cho "Current kernel extension staus"
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_policy" > ~/befo.txt
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_load_history_v3" >> ~/befo.txt
-#
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_policy VALUES('EG7KH642X6','com.vmware.kext.VMwareGfx',1,'VMware, Inc.',1)"
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_policy VALUES('EG7KH642X6','com.vmware.kext.vmhgfs',1,'VMware, Inc.',1)"
-#IKE_NOW_N_SHIT=$(/bin/date "+%Y-%m-%d %H:%M:%S")
-#_WHILE_AGO=$(/bin/date  -v-5m "+%Y-%m-%d %H:%M:%S")
-#> /Library/Extensions/VMwareGfx.kext|EG7KH642X6|com.vmware.kext.VMwareGfx|BC429FD9-060C-4347-AF15-8368B9AB0525|2021-01-27 14:02:16|2021-06-27 21:09:19|53|fc6c7865969ce929022ea07caefce5f669144959
-#
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_load_history_v3 VALUES('/Library/Extensions/VMwareGfx.kext','EG7KH642X6','com.vmware.kext.VMwareGfx','BC429FD9-060C-4347-AF15-8368B9AB0525','2021-01-27 14:02:16','$A_WHILE_AGO',53,'fc6c7865969ce929022ea07caefce5f669144959')"
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_load_history_v3 VALUES('/Library/Application Support/VMware Tools/vmhgfs.kext','EG7KH642X6','com.vmware.kext.vmhgfs','BC429FD9-060C-4347-AF15-8368B9AB0525','2021-01-27 14:02:16','$A_WHILE_AGO',16,'2de8c493ab488c19c96de27089a0b5afe4621616')"
-#
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_policy" > ~/afta.txt
-#udo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_load_history_v3" >> ~/afta.txt
-#
-#udo kmutil install --update-all || true
-#udo kcditto || true
+if [[ $(csrutil status) =~ "disabled" ]]; then
 
+# List kernel extensions
+echo "Current kernel extension staus"
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_policy" > ~/befo.txt
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_load_history_v3" >> ~/befo.txt
+
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_policy VALUES('EG7KH642X6','com.vmware.kext.VMwareGfx',1,'VMware, Inc.',1)"
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_policy VALUES('EG7KH642X6','com.vmware.kext.vmhgfs',1,'VMware, Inc.',1)"
+LIKE_NOW_N_SHIT=$(/bin/date "+%Y-%m-%d %H:%M:%S")
+A_WHILE_AGO=$(/bin/date  -v-5m "+%Y-%m-%d %H:%M:%S")
+#> /Library/Extensions/VMwareGfx.kext|EG7KH642X6|com.vmware.kext.VMwareGfx|BC429FD9-060C-4347-AF15-8368B9AB0525|2021-01-27 14:02:16|2021-06-27 21:09:19|53|fc6c7865969ce929022ea07caefce5f669144959
+
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_load_history_v3 VALUES('/Library/Extensions/VMwareGfx.kext','EG7KH642X6','com.vmware.kext.VMwareGfx','BC429FD9-060C-4347-AF15-8368B9AB0525','2021-01-27 14:02:16','$A_WHILE_AGO',53,'fc6c7865969ce929022ea07caefce5f669144959')"
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "REPLACE INTO kext_load_history_v3 VALUES('/Library/Application Support/VMware Tools/vmhgfs.kext','EG7KH642X6','com.vmware.kext.vmhgfs','BC429FD9-060C-4347-AF15-8368B9AB0525','2021-01-27 14:02:16','$A_WHILE_AGO',16,'2de8c493ab488c19c96de27089a0b5afe4621616')"
+
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_policy" > ~/afta.txt
+sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "SELECT * FROM kext_load_history_v3" >> ~/afta.txt
+
+sudo kmutil install --update-all || true
+sudo kcditto || true
+
+else
+  echo "sip is enabled skipping some config changes"
+fi
 
 exit 0
+
+
 #sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "delete from kext_load_history_v3 where bundle_id = 'com.vmware.kext.VMwareGfx'"
 #sudo sqlite3 /var/db/SystemPolicyConfiguration/KextPolicy "delete from kext_load_history_v3 where bundle_id = 'com.vmware.kext.vmhgfs'"
 
