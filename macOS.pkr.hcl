@@ -113,7 +113,7 @@ source "vmware-iso" "macOS" {
   disk_type_id         = "0"
   ssh_timeout          = "12h"
   usb                  = "true"
-  version              = "18"
+  version              = "19"
   cpus                 = var.cpu_count
   cores                = var.cpu_count
   memory               = var.ram_gb * 1024
@@ -220,7 +220,7 @@ build {
   sources = ["sources.vmware-vmx.macOS"]
 
   provisioner "file" {
-    sources     = [var.xcode_cli]
+    sources     = [var.xcode_cli, "submodules/tccutil/tccutil.py"]
     destination = "~/"
   }
 
@@ -229,6 +229,7 @@ build {
   }
 
   provisioner "shell" {
+    expect_disconnect   = true
     script = "scripts/os_configure.sh"
   }
 
