@@ -11,7 +11,7 @@ pmset disksleep 0 || true
 defaults -currentHost write com.apple.screensaver idleTime 0
 
 # sudo nopasswd for packer user
-echo 'packer     ALL=(ALL)       NOPASSWD: ALL' >/private/etc/sudoers.d/packer
+echo '%admin     ALL=(ALL)       NOPASSWD: ALL' >/private/etc/sudoers.d/admin
 
 # supress setup screens
 touch /private/var/db/.AppleSetupDone

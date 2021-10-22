@@ -32,14 +32,14 @@ if [[ $(csrutil status) =~ "disabled" ]]; then
 
   ## use UI automation to approve VMware Kernel Extensions
   # dismiss kernel ext dialog
-  /usr/local/bin/cliclick -m verbose c:515,365
+  /usr/local/bin/cliclick -m verbose c:515,360
   # Open System Preferences to security
   open "x-apple.systempreferences:com.apple.preference.security?General"
   sleep 5
   # click lock icon
   /usr/local/bin/cliclick -m verbose c:220,632 w:500
   # input password
-  /usr/local/bin/cliclick -m verbose t:packer w:500
+  /usr/local/bin/cliclick -m verbose "t:${USER_PASSWORD}" w:500
   # submit password
   /usr/local/bin/cliclick -m verbose kp:enter w:1500
   # click allow button for kext

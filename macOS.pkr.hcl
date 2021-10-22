@@ -173,8 +173,8 @@ source "vmware-vmx" "macOS" {
   display_name     = "{{build_name}} ${var.macos_version}"
   vm_name          = "{{build_name}}_${var.macos_version}"
   vmdk_name        = "{{build_name}}_${var.macos_version}"
-  ssh_username     = "packer"
-  ssh_password     = "packer"
+  ssh_username     = "${var.user_username}"
+  ssh_password     = "${var.user_password}"
   boot_wait        = "30s"
   skip_compaction  = true
   linked           = var.snapshot_linked
@@ -225,10 +225,9 @@ build {
   }
 
   provisioner "shell" {
-    inline = ["csrutil status"]
-  }
-
-  provisioner "shell" {
+    environment_vars = [
+      "USER_PASSWORD=${var.user_password}"
+    ]
     expect_disconnect   = true
     script = "scripts/os_configure.sh"
   }
