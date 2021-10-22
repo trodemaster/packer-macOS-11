@@ -47,11 +47,16 @@ if [[ $(csrutil status) =~ "disabled" ]]; then
   # confirm reboot
   /usr/local/bin/cliclick -m verbose kp:space
   echo "rebooting"
+  sleep 1
+  pkill "System Preferences" || true
   # Wait for ssh to stop responding
   sleep 30
 else
   echo "sip is enabled skipping some config changes"
 fi
+
+# remove vmware shared folders shortcut
+[[ -f ${HOME}/Desktop/VMware\ Shared\ Folders ]] && rm ${HOME}/Desktop/VMware\ Shared\ Folders
 
 exit 0
 
