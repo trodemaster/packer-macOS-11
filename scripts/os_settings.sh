@@ -4,7 +4,7 @@ IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
 # stop screensaver from wheezing the juice
-defaults -currentHost write com.apple.screensaver idleTime 0
+defaults -currentHost write com.apple.screensaver idleTime -int 0
 
 # kill feedback assistant
 pkill Feedback || true

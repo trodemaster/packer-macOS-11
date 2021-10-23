@@ -5,3 +5,6 @@
 	path = submodules/macadmin-scripts
 	url = https://github.com/grahampugh/macadmin-scripts
 	branch = master
+[submodule "submodules/tccutil"]
+	path = submodules/tccutil
+	url = https://github.com/jacobsalmela/tccutil.git

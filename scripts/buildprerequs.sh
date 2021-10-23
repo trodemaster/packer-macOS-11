@@ -18,7 +18,7 @@ cd ../../
 # mount the installer dmg
 hdiutil attach submodules/macadmin-scripts/Install_macOS*.dmg -noverify -mountpoint install_bits/dmg
 
-# Create ios file by calling the following script
+# Create iso file by calling the following script
 # use this as a git submodule https://github.com/rtrouton/create_macos_vm_install_dmg/blob/master/create_macos_vm_install_dmg.sh
 INSTALL_APP=$(basename install_bits/dmg/Install*.app)
 echo 1 | ./submodules/create_macos_vm_install_dmg/create_macos_vm_install_dmg.sh "install_bits/dmg/${INSTALL_APP}" install_bits/ #|| true

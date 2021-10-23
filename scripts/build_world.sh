@@ -26,12 +26,18 @@ kill_spawn() {
 trap kill_spawn EXIT SIGINT
 
 # start full build
+<<<<<<< HEAD
 packer build -force -only full.vmware-iso.macOS_11 -var-file "$VARFILE" macOS_11.pkr.hcl &
 
 # start base build and then start customize build
 (
   packer build -force -only base.vmware-iso.macOS_11_base -var-file "$VARFILE" macOS_11.pkr.hcl &&
     packer build -force -only=customize.vmware-vmx.macOS_11_customize -var-file "$VARFILE" macOS_11.pkr.hcl
+=======
+(
+  packer build -force -only base.vmware-iso.macOS -var-file "$VARFILE" macOS.pkr.hcl &&
+    packer build -force -only=customize.vmware-vmx.macOS -var-file "$VARFILE" macOS.pkr.hcl
+>>>>>>> sip
 ) &
 
 # Wait for all builds to finish
