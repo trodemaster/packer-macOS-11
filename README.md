@@ -1,6 +1,6 @@
 # packer-macOS-11
 
-This a packer template for macOS 11 or 12 built on VMware fusion 12. It's created using the newer packer hcl2 syntax. These templates only support x86 platform as Apple has introdued breaking changes with the new Applesilicon platform.
+This a packer template for macOS 11 or 12 built on VMware fusion 12. It's created using the newer packer hcl2 syntax. These templates only support x86 platform as Apple has introduced breaking changes with the new Applesilicon platform.
 
 ## Discussion thread for usage questions
 See this hashicorp discuss thread for general usage questions & answers.
