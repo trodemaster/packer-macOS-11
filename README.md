@@ -5,7 +5,7 @@ This a packer template for macOS 11 or 12 built on VMware fusion 12. It's create
 ## Discussion thread for usage questions
 See this hashicorp discuss thread for general usage questions & answers.
 
---> [**building-macos-11-x-vms-with-packer-and-fusion**](https://discuss.hashicorp.com/t/building-macos-11-x-vms-with-packer-and-fusion/) <--
+--> [**building-macos-12-x-vms-with-packer-and-fusion**](https://discuss.hashicorp.com/t/building-macos-12-x-vms-with-packer-and-fusion/31069) <--
 
 ## Key capabilities
 * [scripts/buildprerequs.sh](scripts/buildprerequs.sh) creates a macOS installer .iso
@@ -141,4 +141,11 @@ Additionally a new variable *bootstrapper_script* has been added. Using this is 
 bootstrapper_script = [ "curl https://@raw.githubusercontent.com/gitusers/myconfig/main/bootstrap.sh -o bootstrap.sh",
 "chmod +x bootstrap.sh",
 "./bootstrap.sh" ]
+```
+
+### Simple wrapper script to run both base & customize builds 
+Included is a simple wrapper script used to build the base image and then the customized image. It takes a single parameter that is a packer variable file. This simplifies the build process if you maintain multiple versions of macOS VMs. 
+
+```
+./buildworld.sh monterey.pkrvars.hcl
 ```
