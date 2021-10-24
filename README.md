@@ -138,7 +138,7 @@ Sometimes newer versions of VMware tools are available from vmware.com . Check h
 Additionally a new variable *bootstrapper_script* has been added. Using this is an easy way to add a few more commands to the build or pull down a script to extend the build process to your needs. I use it to install golang, macports and dotfiles via a script in another repo. See below for an example. 
 
 ```
-bootstrapper_script = [ "curl https://@raw.githubusercontent.com/gitusers/myconfig/main/bootstrap.sh -o bootstrap.sh",
+bootstrapper_script = [ "curl https://raw.githubusercontent.com/gitusers/myconfig/main/bootstrap.sh -o bootstrap.sh",
 "chmod +x bootstrap.sh",
 "./bootstrap.sh" ]
 ```
