@@ -133,3 +133,12 @@ If the host system is running macOS 11.x enabling the virtualized GPU provides a
 Sometimes newer versions of VMware tools are available from vmware.com . Check https://vmware.com/go/tools . If you want to use an iso besides the one included with VMware fusion then update the variable tools_path 
 
     tools_path="install_bits/darwin.iso"
+
+### Add your own config script
+Additionally a new variable *bootstrapper_script* has been added. Using this is an easy way to add a few more commands to the build or pull down a script to extend the build process to your needs. I use it to install golang, macports and dotfiles via a script in another repo. See below for an example. 
+
+```
+bootstrapper_script = [ "curl https://@raw.githubusercontent.com/gitusers/myconfig/main/bootstrap.sh -o bootstrap.sh",
+"chmod +x bootstrap.sh",
+"./bootstrap.sh" ]
+```
