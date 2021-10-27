@@ -34,13 +34,13 @@ if [[ $(csrutil status) =~ "disabled" ]]; then
   open "x-apple.systempreferences:com.apple.preference.security?General"
   sleep 5
   # click lock icon
-  /usr/local/bin/cliclick -m verbose c:220,632 w:500
+  /usr/local/bin/cliclick -m verbose c:220,632 w:1000
   # input password
-  /usr/local/bin/cliclick -m verbose "t:${USER_PASSWORD}" w:500
+  /usr/local/bin/cliclick -m verbose "t:${USER_PASSWORD}" w:1000
   # submit password
-  /usr/local/bin/cliclick -m verbose kp:enter w:1500
+  /usr/local/bin/cliclick -m verbose kp:enter w:2000
   # click allow button for kext
-  /usr/local/bin/cliclick -m verbose c:750,545 w:500
+  /usr/local/bin/cliclick -m verbose c:750,545 w:1000
   # confirm reboot
   /usr/local/bin/cliclick -m verbose kp:space
   echo "rebooting"
