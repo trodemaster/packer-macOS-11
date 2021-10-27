@@ -9,10 +9,7 @@ if ! [[ -d /usr/local/bin ]]; then
 fi
 
 # install cliclick
-/usr/bin/curl -s -S -o ~/cliclick.zip https://www.bluem.net/files/cliclick.zip
-/usr/bin/unzip -o ~/cliclick.zip
-/usr/bin/sudo mv ~/cliclick/cliclick /usr/local/bin/cliclick
-/bin/rm -r ~/cliclick*
+/usr/bin/sudo mv ~/cliclick /usr/local/bin/cliclick
 
 # install tccutil.py
 sudo mv ~/tccutil.py /usr/local/bin/
@@ -56,7 +53,7 @@ else
 fi
 
 # remove vmware shared folders shortcut
-[[ -f ${HOME}/Desktop/VMware\ Shared\ Folders ]] && rm ${HOME}/Desktop/VMware\ Shared\ Folders
+[[ -x ${HOME}/Desktop/VMware\ Shared\ Folders ]] && rm ${HOME}/Desktop/VMware\ Shared\ Folders
 
 exit 0
 

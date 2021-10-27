@@ -34,7 +34,7 @@ variable "ram_gb" {
 
 variable "xcode_cli" {
   type    = string
-  default = "install_bits/Command_Line_Tools_for_Xcode_12.4.dmg"
+  default = "install_bits/Command_Line_Tools_for_Xcode_13.1.dmg"
 }
 
 variable "board_id" {
@@ -220,7 +220,7 @@ build {
   sources = ["sources.vmware-vmx.macOS"]
 
   provisioner "file" {
-    sources     = [var.xcode_cli, "submodules/tccutil/tccutil.py"]
+    sources     = [var.xcode_cli, "submodules/tccutil/tccutil.py", "files/cliclick"]
     destination = "~/"
   }
 
