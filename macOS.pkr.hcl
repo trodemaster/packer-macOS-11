@@ -146,6 +146,7 @@ source "vmware-iso" "macOS" {
     "usb_xhci:7.speed"             = "4"
     "usb_xhci.pciSlotNumber"       = "192"
     "usb_xhci.present"             = "TRUE"
+    "hgfs.linkRootShare"           = "FALSE"
   }
   boot_wait              = var.boot_wait_iso
   boot_key_interval      = var.boot_key_interval_iso
@@ -228,8 +229,8 @@ build {
     environment_vars = [
       "USER_PASSWORD=${var.user_password}"
     ]
-    expect_disconnect   = true
-    script = "scripts/os_configure.sh"
+    expect_disconnect = true
+    script            = "scripts/os_configure.sh"
   }
 
   provisioner "shell" {
