@@ -149,3 +149,12 @@ Included is a simple wrapper script used to build the base image and then the cu
 ```
 ./buildworld.sh monterey.pkrvars.hcl
 ```
+
+### Building headless/remote
+You can build the images on a remote machine via ssh and control them with the `headless` and `vnc_` variables.
+To do so it is required to be logged in to the GUI on the remote machine, but it can be locked and you can be connected only via ssh.
+Adjust e.g. `headless`, `vnc_bind_address` and `vnc_port_{min,max}` variables to start.
+- `vnc_port_{min,max}` can be set to the same value, thereby locking the vnc connection to a single port, but this will limit you to build only one machine at once.
+Add a line into your `.ssh/config` for the remote host such as `LocalForward 5950 localhost:5950` or as a one-off `ssh <remote> -L 5950:localhost:5950`
+Then when the image boots you can watch its progress at `vnc://127.0.0.1:5950`
+Or you can adjust `vnc_bind_address` to the main IP of the remote host and connect that way (without ssh forwarding), but that feels like an unnecessary security risk to me.
