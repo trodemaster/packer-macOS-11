@@ -93,8 +93,38 @@ variable "bootstrapper_script" {
   default = ["sw_vers"]
 }
 
+variable "headless" {
+  type = bool
+  default = false
+}
+
+variable "vnc_bind_address" {
+  type    = string
+  default = "127.0.0.1"
+}
+
+variable "vnc_port_min" {
+  type    = string
+  default = "5900"
+}
+
+variable "vnc_port_max" {
+  type    = string
+  default = "6000"
+}
+
+variable "vnc_disable_password" {
+  type    = bool
+  default = false
+}
+
 # source from iso
 source "vmware-iso" "macOS" {
+  headless             = "${var.headless}"
+  vnc_bind_address     = "${var.vnc_bind_address}"
+  vnc_disable_password = "${var.vnc_disable_password}"
+  vnc_port_min         = "${var.vnc_port_min}"
+  vnc_port_max         = "${var.vnc_port_max}"
   display_name         = "{{build_name}} ${var.macos_version} base"
   vm_name              = "{{build_name}}_${var.macos_version}_base"
   vmdk_name            = "{{build_name}}_${var.macos_version}_base"
@@ -180,6 +210,11 @@ source "vmware-iso" "macOS" {
 
 # Customize build from existing vm
 source "vmware-vmx" "macOS" {
+  headless             = "${var.headless}"
+  vnc_bind_address     = "${var.vnc_bind_address}"
+  vnc_disable_password = "${var.vnc_disable_password}"
+  vnc_port_min         = "${var.vnc_port_min}"
+  vnc_port_max         = "${var.vnc_port_max}"
   display_name     = "{{build_name}} ${var.macos_version}"
   vm_name          = "{{build_name}}_${var.macos_version}"
   vmdk_name        = "{{build_name}}_${var.macos_version}"
