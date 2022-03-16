@@ -23,6 +23,9 @@ fi
 # use mist to download and convert the iso
 sudo mist download $1 --iso --iso-name macOS_%VERSION%_%BUILD%.iso -t install_bits -o install_bits
 
+# include beta flag if you want beta OS versions
+# sudo mist download -b $1 --iso --iso-name macOS_%VERSION%_%BUILD%.iso -t install_bits -o install_bits
+
 # fixup owner
 sudo chown $USER install_bits/macOS_$1*.iso
 

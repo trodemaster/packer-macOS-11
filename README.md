@@ -21,18 +21,14 @@ See this hashicorp discuss thread for general usage questions & answers.
 * Minimum packer version is 1.7.x
 * VMware Fusion 12.0 or greater
 
-## Update submodules
-After cloning this repo you must pull down the submodules by running the following command from the root of the repo.
 
-    git submodule update --init
 
 ## Prerequisite installer bits
-I have imported two projects as submodules to create the needed macOS installer .iso. Running the [scripts/buildprerequs.sh](scripts/buildprerequs.sh) will call those to generate it. If you have a macOS 11 install .iso from some other method that will work as well. 
+The current version of this project now uses mist to create macOS x86 installer iso files. Grab a copy from https://github.com/ninxsoft/Mist and make sure it's available on your path before the next steps. 
 
-Thanks to all contributors of the following project that are imported as submodules:
+For generating the boot iso and matching shasum run the macosiso.sh script providing the OS major version you want to create. Generating the iso directly with mist also works. You will just need to povide packer the sha256 via input variable.
 
-* [create_macos_vm_install_dmg](https://github.com/rtrouton/create_macos_vm_install_dmg)
-* [macadmin-scripts](https://github.com/grahampugh/macadmin-scripts)
+    scripts/macosiso.sh 12.2
 
 With the customize build I'm installing Xcode command line tools 13. Grab both the latest Xcode Command Line tools installer dmg from [developer.apple.com](https://developer.apple.com). Toss them into the `install_bits` directory. 
 
@@ -40,7 +36,6 @@ Here is what your `install_bits` directory should look like to successfully buil
 ```
 install_bits/
 ├── Command_Line_Tools_for_Xcode_13.dmg
-├── dmg
 ├── macOS_1120_installer.iso
 └── macOS_1120_installer.shasum
 ```
