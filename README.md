@@ -35,9 +35,9 @@ With the customize build I'm installing Xcode command line tools 13. Grab both t
 Here is what your `install_bits` directory should look like to successfully build the full image:
 ```
 install_bits/
-├── Command_Line_Tools_for_Xcode_13.dmg
-├── macOS_1120_installer.iso
-└── macOS_1120_installer.shasum
+├── Command_Line_Tools_for_Xcode_13.2.dmg
+├── macOS_12.2.1_21D62.iso
+└── macOS_12.2.1_21D62.shasum
 ```
 NOTE: Filenames will change as newer versions are released
 
