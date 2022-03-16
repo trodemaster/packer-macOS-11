@@ -8,7 +8,7 @@ See this hashicorp discuss thread for general usage questions & answers.
 --> [**building-macos-12-x-vms-with-packer-and-fusion**](https://discuss.hashicorp.com/t/building-macos-12-x-vms-with-packer-and-fusion/31069) <--
 
 ## Key capabilities
-* [scripts/buildprerequs.sh](scripts/buildprerequs.sh) creates a macOS installer .iso
+* [scripts/macosiso.sh](scripts/macosiso.sh) creates a macOS installer via mist
 * Using voiceover and boot commands to open terminal.app !!
 * Downloading .pkg and script payloads to the recovery environment 
 * Running the payload scripts that handle the install process
