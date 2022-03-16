@@ -142,5 +142,5 @@ bootstrapper_script = [ "curl https://raw.githubusercontent.com/gitusers/myconfi
 Included is a simple wrapper script used to build the base image and then the customized image. It takes a single parameter that is a packer variable file. This simplifies the build process if you maintain multiple versions of macOS VMs. 
 
 ```
-./buildworld.sh monterey.pkrvars.hcl
+./build monterey.pkrvars.hcl
 ```
