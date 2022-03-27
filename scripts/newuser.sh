@@ -71,3 +71,5 @@ exit 0
 scp scripts/newuser.sh twelve3:~/ && ssh twelve3 "chmod +x ~/newuser.sh && ~/newuser.sh"
 
 scp scripts/newuser.sh twelve3:~/ && ssh twelve3 "chmod +x ~/newuser.sh && ~/newuser.sh && sudo reboot"
+
+
