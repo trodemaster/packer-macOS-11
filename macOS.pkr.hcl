@@ -265,7 +265,7 @@ build {
   sources = ["sources.vmware-vmx.macOS"]
 
   provisioner "file" {
-    sources     = [var.xcode_cli, "submodules/tccutil/tccutil.py", "files/cliclick"]
+    sources     = [var.xcode_cli, "files/cliclick"]
     destination = "~/"
   }
 
