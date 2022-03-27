@@ -12,7 +12,7 @@ fi
 
 # change to project root dir
 SCRIPT_PATH=$(realpath "$0")
-SCRIPT_PATH="${SCRIPT_PATH/buildworld.sh/}"
+SCRIPT_PATH="${SCRIPT_PATH/build/}"
 cd "$SCRIPT_PATH"
 
 # kill all child proceses
