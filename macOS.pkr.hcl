@@ -118,6 +118,26 @@ variable "vnc_disable_password" {
   default = false
 }
 
+variable "remove_packer_user" {
+  type = bool
+  default = false
+}
+
+variable "new_username" {
+  type = string
+  default = "vagrant"
+}
+
+variable "new_password" {
+  type = string
+  default = "vagrant"
+}
+
+variable "new_ssh_key" {
+  type = string
+  default = ""
+}
+
 # source from iso
 source "vmware-iso" "macOS" {
   headless             = "${var.headless}"
@@ -228,6 +248,8 @@ source "vmware-vmx" "macOS" {
   output_directory = "output/{{build_name}}_${var.macos_version}"
   vmx_data = {
     "nvram" = "../../scripts/disablesip.nvram"
+    "svga.maxWidth" = "1024"
+    "svga.maxHeight" = "768"
   }
   vmx_data_post = {
     "nvram" = "{{build_name}}_${var.macos_version}.nvram"
@@ -271,7 +293,7 @@ build {
 
   provisioner "shell" {
     environment_vars = [
-      "USER_PASSWORD=${var.user_password}"
+      "USER_PASSWORD=${var.user_password}" # is this needed?
     ]
     expect_disconnect = true
     script            = "scripts/os_configure.sh"
@@ -294,6 +316,17 @@ build {
   provisioner "shell" {
     expect_disconnect = true
     inline            = var.bootstrapper_script
+  }
+
+  # optionally remove packer user and setup a new local admin account
+  provisioner "shell" {
+    environment_vars = [
+      "REMOVE_PACKER_USER=${var.remove_packer_user}",
+      "NEW_USERNAME=${var.new_username}",
+      "NEW_PASSWORD=${var.new_password}",
+      "NEW_SSH_KEY=${var.new_ssh_key}"
+    ]
+    script = "scripts/newuser.sh"
   }
 
   post-processor "shell-local" {

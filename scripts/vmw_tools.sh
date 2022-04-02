@@ -17,6 +17,7 @@ rm ~/darwin.iso
 # output version installed
 /Library/Application\ Support/VMware\ Tools/vmware-tools-cli -v
 
+
 # restart the box
 sudo reboot
 

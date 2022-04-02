@@ -8,6 +8,11 @@ NEW_USERNAME="vagrant"
 # new user pass var
 NEW_PASS="vagrant"
 
+echo "REMOVE_PACKER_USER=$REMOVE_PACKER_USER"
+echo "NEW_USERNAME=$NEW_USERNAME"
+echo "NEW_PASSWORD=$NEW_PASSWORD"
+echo "NEW_SSH_KEY=$NEW_SSH_KEY"
+
 # ssh needs full disk access
 # sysadminctl 	-addUser <user name> [-fullName <full name>] [-UID <user ID>] [-GID <group ID>] [-shell <path to shell>] [-password <user password>] [-hint <user hint>] [-home <full path to home>] [-admin] [-roleAccount] [-picture <full path to user image>] (interactive] || -adminUser <administrator user name> -adminPassword <administrator password>)
 cd /Users

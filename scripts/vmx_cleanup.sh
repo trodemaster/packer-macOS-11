@@ -28,3 +28,8 @@ if (grep -q appleGPU0.present "$VMX_FILE"); then
 else
   echo 'appleGPU0.present="TRUE"' >>"$VMX_FILE"
 fi
+
+# remove hardcoded screen res for svga
+if (grep -q svga.max "$VMX_FILE"); then
+  /usr/bin/sed -i '' '/svga.max/d' "$VMX_FILE"
+fi
