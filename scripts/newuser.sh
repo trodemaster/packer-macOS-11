@@ -3,20 +3,20 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-# new user name var
-NEW_USERNAME="vagrant"
-# new user pass var
-NEW_PASS="vagrant"
-
 echo "REMOVE_PACKER_USER=$REMOVE_PACKER_USER"
 echo "NEW_USERNAME=$NEW_USERNAME"
 echo "NEW_PASSWORD=$NEW_PASSWORD"
 echo "NEW_SSH_KEY=$NEW_SSH_KEY"
 
+if [[ $REMOVE_PACKER_USER =~ false ]]; then
+	echo "skipping new user creation..."
+	exit 0
+fi
+
 # ssh needs full disk access
 # sysadminctl 	-addUser <user name> [-fullName <full name>] [-UID <user ID>] [-GID <group ID>] [-shell <path to shell>] [-password <user password>] [-hint <user hint>] [-home <full path to home>] [-admin] [-roleAccount] [-picture <full path to user image>] (interactive] || -adminUser <administrator user name> -adminPassword <administrator password>)
 cd /Users
-sudo sysadminctl -addUser "$NEW_USERNAME" -fullName "$NEW_USERNAME" -password "$NEW_PASS" -home /Users/"$NEW_USERNAME" -admin -shell /bin/zsh -adminUser packer -adminPassword packer
+sudo sysadminctl -addUser "$NEW_USERNAME" -fullName "$NEW_USERNAME" -password "$NEW_PASSWORD" -home /Users/"$NEW_USERNAME" -admin -shell /bin/zsh -picture /Library/User\ Pictures/Instruments/Turntable.tif -adminUser packer -adminPassword packer
 sudo createhomedir -u "$NEW_USERNAME" -c
 
 #disable autologin
@@ -52,20 +52,11 @@ sudo tee /Library/LaunchDaemons/com.blakegarner.packer-user-removal.plist >/dev/
 EOF
 
 # write cleanup script to /Users/"$NEW_USERNAME"/
-sudo tee /Users/$NEW_USERNAME/cleanuser.sh >/dev/null <<-EOF
+sudo tee /Users/"${NEW_USERNAME}"/cleanuser.sh >/dev/null <<-EOF
 #!/bin/bash
-#touch /Users/$NEW_USERNAME/cleanuser.run
-whoami
 cd /Users
-/usr/sbin/sysadminctl -adminUser $NEW_USERNAME -adminPassword $NEW_PASS -secureTokenOff packer -password packer
-/usr/sbin/sysadminctl -deleteUser packer -adminUser $NEW_USERNAME -adminPassword $NEW_PASS
-echo "userdel"
-# launchctl bootout system /Users/$NEW_USERNAME/com.blakegarner.packer-user-removal.plist
-# echo "launchd boutout"
-#/bin/rm /Users/$NEW_USERNAME/com.blakegarner.packer-user-removal.plist
-#echo "launchd rm"
-#rm $0
-#touch /Users/$NEW_USERNAME/cleanuser.end
+/usr/sbin/sysadminctl -adminUser $NEW_USERNAME -adminPassword "$NEW_PASSWORD" -secureTokenOff packer -password packer
+/usr/sbin/sysadminctl -deleteUser packer -adminUser $NEW_USERNAME -adminPassword "$NEW_PASSWORD"
 rm /Library/LaunchDaemons/com.blakegarner.packer-user-removal.plist
 rm /Users/$NEW_USERNAME/cleanuser.sh
 exit 0
@@ -73,8 +64,3 @@ EOF
 sudo chmod +x /Users/$NEW_USERNAME/cleanuser.sh
 
 exit 0
-scp scripts/newuser.sh twelve3:~/ && ssh twelve3 "chmod +x ~/newuser.sh && ~/newuser.sh"
-
-scp scripts/newuser.sh twelve3:~/ && ssh twelve3 "chmod +x ~/newuser.sh && ~/newuser.sh && sudo reboot"
-
-

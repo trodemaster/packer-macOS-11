@@ -93,16 +93,6 @@ The process for starting the installer is very dependant on timing, unfortunatel
     boot_wait_iso="400s"
     boot_keygroup_interval_iso="5s"
 
-### Username & Password
-The build process created a packer user with UID 502. I recommended to login with that account and create a new user with the appropriate password when you start using the VM after the build. Customizing the user/pass has been simplified. Start by setting them in your variables file.
-
-    user_username="packer2"
-    user_password="packer3"
-
-Additionally the username is embeded in packages and scritps using durring the install process. Run the helper script below to regenerate the user creation package. 
-
-    scripts/makepkgs.sh packer2 packer3
-
 ### Customize computer serial and model
 Variables have been added to customize board id, hardware model & serial number. This can be handy for testing DEP workflows.
 
@@ -121,8 +111,17 @@ Possible values are
     CustomerSeed
     DeveloperSeed
     none
-### Apple GPU support on Big Sur hosts
-If the host system is running macOS 11.x enabling the virtualized GPU provides a dramatic speedup of the GUI. This version of the template uses a post-processor to add the needed vmx config if the host OS is macOS 11.x+. 
+### Customize username, password, hostname & ssh key
+Changing the username/pass in the http/packer.pkg has been deprecated. The current version supports passing user details as packer variables. Configuring the following vars will remove the packer user and add a new one with the provided variables. Setting a hostname and ssh key simplifies connecting to the VM once the build is completed. 
+
+    remove_packer_user = true
+    new_username = "claris"
+    new_password = "m00000f!"
+    new_ssh_key = "ssh-ed25519..."
+    new_hostname = "mac123vm"
+
+### Apple GPU support
+If the host system is running macOS 11.x or later enabling the virtualized GPU provides a dramatic speedup of the GUI. This version of the template uses a post-processor to add the needed vmx config if the host OS is macOS 11.x+. This capability is a beta VMware Fusion feature and has some known issues. 
 
 ### Use downloaded version of VMware tools .iso
 Sometimes newer versions of VMware tools are available from vmware.com . Check https://vmware.com/go/tools . If you want to use an iso besides the one included with VMware fusion then update the variable tools_path 

@@ -34,4 +34,7 @@ echo "Cleanup Xcode installer files"
 #rm ~/Xcode*.xip
 rm ~/Command_Line_Tools_*.dmg
 
+# workaround for display res getting reset. In this script for timing reasons only.
+sudo /Library/Application\ Support/VMware\ Tools/vmware-resolutionSet 1024 768 || true
+
 exit 0

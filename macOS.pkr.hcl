@@ -138,6 +138,11 @@ variable "new_ssh_key" {
   default = ""
 }
 
+variable "new_hostname" {
+  type = string
+  default = "macosvm"
+}
+
 # source from iso
 source "vmware-iso" "macOS" {
   headless             = "${var.headless}"
@@ -293,7 +298,7 @@ build {
 
   provisioner "shell" {
     environment_vars = [
-      "USER_PASSWORD=${var.user_password}" # is this needed?
+      "NEW_HOSTNAME=${var.new_hostname}" # is this needed?
     ]
     expect_disconnect = true
     script            = "scripts/os_configure.sh"
@@ -312,12 +317,6 @@ build {
     ]
   }
 
-  # optionally call external bootstrap script set by var.bootstrapper_script
-  provisioner "shell" {
-    expect_disconnect = true
-    inline            = var.bootstrapper_script
-  }
-
   # optionally remove packer user and setup a new local admin account
   provisioner "shell" {
     environment_vars = [
@@ -326,7 +325,13 @@ build {
       "NEW_PASSWORD=${var.new_password}",
       "NEW_SSH_KEY=${var.new_ssh_key}"
     ]
-    script = "scripts/newuser.sh"
+    scripts = ["scripts/newuser.sh","scripts/setAutoLogin.jamf.sh" ]
+  }
+
+  # optionally call external bootstrap script set by var.bootstrapper_script
+  provisioner "shell" {
+    expect_disconnect = true
+    inline            = var.bootstrapper_script
   }
 
   post-processor "shell-local" {
