@@ -14,6 +14,13 @@ if ! ( command -v mist > /dev/null 2>&1 ); then
   exit 1
 fi
 
+# do a mist version check as the arguments changed over time
+if [[ $(echo "$(mist version | /usr/bin/grep -o -e '^[0-9]\+\.[0-9]\+') < 1.8" | bc -l) == 1 ]]; then
+  mist version
+  echo "Mist version needs to be at least 1.8..."
+  exit 1
+fi
+
 # test for target path
 if ! [[ -d install_bits ]]; then
   echo "Script needs to run from the root of the repo"
@@ -21,16 +28,11 @@ if ! [[ -d install_bits ]]; then
 fi
 
 # use mist to download and convert the iso
-sudo mist download $1 --iso --iso-name macOS_%VERSION%_%BUILD%.iso -t install_bits -o install_bits
-
-# include beta flag if you want beta OS versions
-# sudo mist download -b $1 --iso --iso-name macOS_%VERSION%_%BUILD%.iso -t install_bits -o install_bits
-
-# fixup owner
-sudo chown $USER install_bits/macOS_$1*.iso
+echo "Creating the installer iso requires sudo privileges…"
+sudo mist download installer --include-betas $1 iso --iso-name macOS_%VERSION%_%BUILD%.iso -t install_bits -o install_bits
 
 # get iso name
-ISO_NAME=$(basename $(ls -Art install_bits/macOS_$1*.iso | tail -n 1))
+ISO_NAME=$(basename $(ls -Art install_bits/macOS_*$1*.iso | tail -n 1))
 SHASUM_NAME=$(sed 's/iso/shasum/' <<<$ISO_NAME)
 
 # output shasum
