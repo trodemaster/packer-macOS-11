@@ -3,14 +3,10 @@ set -euo pipefail
 IFS=$'\n\t'
 shopt -s nullglob nocaseglob
 
-# path to self and parent dir
-SCRIPT=$(realpath $0)
-SCRIPTPATH=$(dirname $SCRIPT)
-
 # check for mist binary
 if ! ( command -v mist > /dev/null 2>&1 ); then
   echo "This script requires mist in your path to work properly."
-  echo "Get the latest version from https://github.com/ninxsoft/Mist"
+  echo "Get the latest version from https://github.com/ninxsoft/mist-cli"
   exit 1
 fi
 
