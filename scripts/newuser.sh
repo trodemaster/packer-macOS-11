@@ -16,7 +16,7 @@ fi
 # ssh needs full disk access
 # sysadminctl 	-addUser <user name> [-fullName <full name>] [-UID <user ID>] [-GID <group ID>] [-shell <path to shell>] [-password <user password>] [-hint <user hint>] [-home <full path to home>] [-admin] [-roleAccount] [-picture <full path to user image>] (interactive] || -adminUser <administrator user name> -adminPassword <administrator password>)
 cd /Users
-sudo sysadminctl -addUser "$NEW_USERNAME" -fullName "$NEW_USERNAME" -password "$NEW_PASSWORD" -home /Users/"$NEW_USERNAME" -admin -shell /bin/zsh -picture /Library/User\ Pictures/Instruments/Turntable.tif -adminUser packer -adminPassword packer
+sudo sysadminctl -addUser "$NEW_USERNAME" -fullName "$NEW_USERNAME" -password "$NEW_PASSWORD" -home /Users/"$NEW_USERNAME" -admin -shell /bin/zsh -picture /System/Library/Templates/Data/Library/User\ Pictures/Instruments/Turntable.* -adminUser packer -adminPassword packer
 sudo createhomedir -u "$NEW_USERNAME" -c
 
 #disable autologin
