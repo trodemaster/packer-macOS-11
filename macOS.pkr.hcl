@@ -143,9 +143,15 @@ variable "new_hostname" {
   default = "macosvm"
 }
 
+variable "fusion_app_path" {
+  type    = string
+  default = "/Applications/VMware Fusion.app"
+}
+
 # source from iso
 source "vmware-iso" "macOS" {
   headless             = "${var.headless}"
+  fusion_app_path = "${var.fusion_app_path}"
   vnc_bind_address     = "${var.vnc_bind_address}"
   vnc_disable_password = "${var.vnc_disable_password}"
   vnc_port_min         = "${var.vnc_port_min}"
