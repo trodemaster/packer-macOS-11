@@ -11,9 +11,9 @@ if ! ( command -v mist > /dev/null 2>&1 ); then
 fi
 
 # do a mist version check as the arguments changed over time
-if [[ $(echo "$(mist version | /usr/bin/grep -o -e '^[0-9]\+\.[0-9]\+') < 1.8" | bc -l) == 1 ]]; then
-  mist version
-  echo "Mist version needs to be at least 1.8..."
+if [[ $(echo "$(mist --version | /usr/bin/grep -o -e '^[0-9]\+\.[0-9]\+') < 1.9" | bc -l) == 1 ]]; then
+  mist --version
+  echo "Mist version needs to be at least 1.9..."
   exit 1
 fi
 
