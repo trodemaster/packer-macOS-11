@@ -26,10 +26,16 @@ kill_spawn() {
 trap kill_spawn EXIT SIGINT
 
 # start full build
-(
-  packer build -force -only base.vmware-iso.macOS -var-file "$VARFILE" macOS.pkr.hcl &&
-    packer build -force -only=customize.vmware-vmx.macOS -var-file "$VARFILE" macOS.pkr.hcl
-) &
+if [[ $(arch) =~ "arm64" ]]; then
+  (
+    PACKER_LOG=1 packer build -force -only base.tart-cli.macOS -var-file "$VARFILE" macOS.pkr.hcl
+  ) &
+elif [[ $(arch) =~ "i386" ]]; then
+  (
+    packer build -force -only base.vmware-iso.macOS -var-file "$VARFILE" macOS.pkr.hcl &&
+      packer build -force -only=customize.vmware-vmx.macOS -var-file "$VARFILE" macOS.pkr.hcl
+  ) &
+fi
 
 # Wait for all builds to finish
 wait
